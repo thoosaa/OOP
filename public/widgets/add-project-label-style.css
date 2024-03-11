@@ -1,0 +1,59 @@
+#add-project-widget,
+#add-label-widget{
+    margin-left: 246px;
+    background-color: #1e1e1e;
+    width: 450px;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #6b6b6b;
+}
+
+#add-project-widget p,
+#add-label-widget p{
+    padding: 5px;
+    color: white;
+    font-weight: bolder;
+}
+
+#project-info, #label-info{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    gap:2px;
+    color:white;
+}
+
+#add-project-form label, #add-label-form label{
+    font-size: 12px;
+}
+
+#add-label-form input, #add-label-form select{
+    height: 30px;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    border: 1px solid #6b6b6b;
+    color:white;
+}
+
+#add-project-buttons, #add-label-buttons{
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+#add-project-button, #add-label-button{
+    border: 1px solid #de4c4a;
+    background-color: #de4c4a;
+}
+
+#close-project-widget, #close-label-widget{
+    border: 1px solid #363636;
+    background-color: #363636;
+}
+
+#add-project-button, #close-project-widget,
+#add-label-button, #close-label-widget{
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
