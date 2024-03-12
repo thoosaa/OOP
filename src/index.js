@@ -144,6 +144,7 @@ app.get('/getLabels', async (req, res) => {
 })
 
 app.post('/updateTask', async (req, res) => {
+    console.log(req.body);
     const taskName = req.body["oldObject"].name;
     await collection.updateOne(
         { name: user.username, "tasks.name": taskName },

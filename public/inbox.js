@@ -1,6 +1,7 @@
 import * as taskHandler from './taskHandler.js';
 
 window.addEventListener("load", (event) => {
+    event.preventDefault();
     fetch("http://localhost:5000/getTasks")
         .then((res) => res.json())
         .then((data) => {

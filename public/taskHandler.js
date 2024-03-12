@@ -1,3 +1,14 @@
+let oldObject = {
+    name: "", 
+    description: "", 
+    deadline: "",
+    notification: "", 
+    priority: "",
+    project: "",
+    label: "",
+    done: "false",
+}
+
 const addTaskBtn = document.getElementById("add-task-button");
 
 addTaskBtn.addEventListener("click", (e) => {
@@ -33,23 +44,26 @@ addTaskBtn.addEventListener("click", (e) => {
 
 const navAddButton = document.getElementById("add-task");
 navAddButton.addEventListener("click", (e) => {
-    addOptionsProject();
-    addOptionsLabel();
+    e.preventDefault();
+    addOptionsProject('project');
+    addOptionsLabel('label');
     document.getElementById("add-task-widget").style.visibility = "visible";
     document.getElementById('deadline').defaultValue = new Date().toISOString().slice(0, 10);
-    removeOptionsProject();
-    removeOptionsLabel();
+    removeOptionsProject('project');
+    removeOptionsLabel('label');
 });
 
 const closeAddTaskBtn = document.getElementById("close-task-widget");
 closeAddTaskBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     document.getElementById("add-task-widget").style.visibility = "hidden";
-    removeOptionsProject();
-    removeOptionsLabel();
+    removeOptionsProject('project');
+    removeOptionsLabel('label');
 });
 
 const taskContainer = document.getElementById('task-display');
 taskContainer.addEventListener("click", (event) => {
+    event.preventDefault();
     let btn = event.target.closest('button');
     if (btn) {
         let task = btn.parentElement.parentElement;
@@ -77,73 +91,138 @@ taskContainer.addEventListener("click", (event) => {
             notif = task.getElementsByClassName('task-notification')[0].innerHTML;
         }
 
+        let label;
+        if (task.getElementsByClassName('task-label')) {
+            label = "";
+        }
+        else {
+            label = task.getElementsByClassName('task-label')[1].innerHTML;
+        }
+
+        let project;
+        if (task.getElementsByClassName('task-project')) {
+            project = "";
+        }
+        else {
+            project = task.getElementsByClassName('task-project')[1].innerHTML;
+        }
+
         let taskObj = {
             name: task.getElementsByClassName('task-name')[0].innerText,
             description: task.getElementsByClassName('task-des')[0].innerText,
             deadline: task.getElementsByClassName('task-datetime')[0].innerText,
             notification: notif,
             priority: Priority,
+            project: project,
+            label: label,
             done: "true",
         }
-    
-        markDoneInDB(taskObj);
+        
+        let oldObj = Object.assign({}, taskObj);
+        oldObj.done = "false";
+        updateTaskInDB(oldObj, taskObj);
+
+        if (taskObj.deadline == new Date().toISOString().slice(0, 10)) {
+            decTodayTask();
+        }
+        decTaskNum();
+        return;
     }
+
     let dv = event.target.closest('div');
     console.log(dv.className);
-    if (dv.parentElement.className === 'task') {
-        document.getElementById('change-task-widget').style.visibility = 'visible';
+    if (dv.parentElement.className === 'task' || dv.className === 'task') {
+        let widget = document.getElementById('change-task-widget');
+
+        addOptionsProject('newProject');
+        addOptionsLabel('newLabel');
+
+        document.getElementById('newTaskName').value = dv.parentElement.getElementsByClassName('task-name')[0].innerText;
+        oldObject.name = dv.parentElement.getElementsByClassName('task-name')[0].innerText;
+
+        document.getElementById('newDescription').value = dv.parentElement.getElementsByClassName('task-des')[0].innerText;
+        oldObject.description = dv.parentElement.getElementsByClassName('task-des')[0].innerText;
+
+        document.getElementById('newDeadline').value = dv.parentElement.getElementsByClassName('task-datetime')[0].innerText;
+        oldObject.deadline = dv.parentElement.getElementsByClassName('task-datetime')[0].innerText;
+
+        if (dv.parentElement.getElementsByClassName('task-notification').length !== 0) {
+            //console.log(dv.parentElement.getElementsByClassName('task-notification'));
+            document.getElementById('newNotification').value = dv.parentElement.getElementsByClassName('task-notification')[1].innerText;
+            oldObject.notification = dv.parentElement.getElementsByClassName('task-notification')[1].innerText;
+        }
+        if (dv.parentElement.getElementsByClassName('task-priority').length !== 0) {
+            //document.getElementById('newPriority').defaultValue = dv.parentElement.getElementsByClassName('task-priority')[0].innerText;
+            oldObject.priority = getPriority(dv.parentElement.getElementsByClassName('task-check')[0].style.color);
+        }
+        if (dv.parentElement.getElementsByClassName('task-label').length !== 0) {
+            document.getElementById('newLabel').value = dv.parentElement.getElementsByClassName('task-label')[1].innerText;
+            oldObject.label = dv.parentElement.getElementsByClassName('task-label')[1].innerText;
+        }
+
+        widget.style.visibility = 'visible';
     }
 })
 
 const closeChangeTask = document.getElementById('close-task-change-widget');
 closeChangeTask.addEventListener('click', (e) => {
+    e.preventDefault();
     document.getElementById('change-task-widget').style.visibility = 'hidden';
+    removeOptionsProject('newProject');
+    removeOptionsLabel('newLabel');
+});
+
+const changeTask = document.getElementById('change-task-button');
+changeTask.addEventListener('click', (e) => {
+    e.preventDefault();
+    let taskObj = {
+        name: document.getElementById("newTaskName").value, 
+        description: document.getElementById("newDescription").value, 
+        deadline: document.getElementById("newDeadline").value,
+        notification: document.getElementById("newNotification").value, 
+        priority: document.getElementById("newPriority").value,
+        project: document.getElementById("newProject").value,
+        label: document.getElementById("newLabel").value,
+        done: "false",
+    }
+    console.log(oldObject);
+
+    updateTaskInDB(oldObject, taskObj);
+    document.getElementById('change-task-widget').style.visibility = 'hidden';
+    removeOptionsProject('newProject');
+    removeOptionsLabel('newLabel');
+
+    if (document.getElementById('page-name').innerText == 'Входящие') {
+        document.getElementById('task-display').innerHTML = "";
+        displayAllTasks();
+    }
+    else if (document.getElementById('page-name').innerText == 'Сегодня') {
+        document.getElementById('task-display').innerHTML = "";
+        displayTodayTasks();
+    }
 });
 
 async function sendTaskToDB(taskObj) {
-    const res = await fetch("http://localhost:5000/addTask", {
+    await fetch("http://localhost:5000/addTask", {
         method: 'POST',
         headers: {
             "Content-Type": 'application/json'
         },
         body: JSON.stringify({
-            name: taskObj.name, 
-            description: taskObj.description, 
-            deadline: taskObj.deadline,
-            notification: taskObj.notification, 
-            priority: taskObj.priority,
-            project: taskObj.project,
-            label: taskObj.label,
-            done: "false",
+            taskObj
         })
     })
 }
 
-async function markDoneInDB(taskObj) {
-    const res = await fetch("http://localhost:5000/updateTask", {
+async function updateTaskInDB(oldObject, newObject) {
+    await fetch("http://localhost:5000/updateTask", {
         method: 'POST',
         headers: {
             "Content-Type": 'application/json'
         },
         body: JSON.stringify({
-            oldObject: {
-                name: taskObj.name,
-                description: taskObj.description,
-                deadline: taskObj.deadline,
-                notification: taskObj.notification,
-                priority: taskObj.priority,
-                project: taskObj.project,
-                done: "false",
-            },
-            newObject: {
-                name: taskObj.name,
-                description: taskObj.description,
-                deadline: taskObj.deadline,
-                notification: taskObj.notification,
-                priority: taskObj.priority,
-                project: taskObj.project,
-                done: "true",
-            }
+            oldObject,
+            newObject
         })
     })
 }
@@ -233,8 +312,20 @@ export function incTodayTask() {
     document.getElementById("today-task-number").innerHTML = taskCount;
 }
 
-function addOptionsProject() {
-    let projectOptions = document.getElementById('project');
+export function decTaskNum() {
+    let taskCount = parseInt(document.getElementById("icoming-task-number").innerHTML);
+    taskCount--;
+    document.getElementById("icoming-task-number").innerHTML = taskCount;
+}
+
+export function decTodayTask() {
+    let taskCount = parseInt(document.getElementById("today-task-number").innerHTML);
+    taskCount--;
+    document.getElementById("today-task-number").innerHTML = taskCount;
+}
+
+function addOptionsProject(id) {
+    let projectOptions = document.getElementById(id);
     let htmlToAdd = projectOptions.innerHTML;
     fetch("http://localhost:5000/getProjects")
     .then((res) => res.json())
@@ -246,13 +337,13 @@ function addOptionsProject() {
     })
 }
 
-function removeOptionsProject() {
-    let projectOptions = document.getElementById('project');
+function removeOptionsProject(id) {
+    let projectOptions = document.getElementById(id);
     projectOptions.innerHTML = '<option value="inbox">Входящие</option>';
 }
 
-function addOptionsLabel() {
-    let labelOptions = document.getElementById('label');
+function addOptionsLabel(id) {
+    let labelOptions = document.getElementById(id);
     let htmlToAdd = "<option value='nolabel'> </option>";
     fetch("http://localhost:5000/getLabels")
     .then((res) => res.json())
@@ -264,7 +355,58 @@ function addOptionsLabel() {
     })
 }
 
-function removeOptionsLabel() {
-    let projectOptions = document.getElementById('label');
+function removeOptionsLabel(id) {
+    let projectOptions = document.getElementById(id);
     projectOptions.innerHTML = '<option value="nolabel"> </option>';
+}
+
+function getPriority(color) {
+    if (color === "#de4c4a") return 1;
+    else if (color === "#ffa600") return 2;
+    else if (color === "#3c00ff") return 3;
+    else return 4;
+}
+
+function displayAllTasks() {
+    fetch("http://localhost:5000/getTasks")
+        .then((res) => res.json())
+        .then((data) => {
+            for (let i = 0; i < data.length; i++){
+                console.log(data[i]);
+
+                let container = document.getElementById("task-display");
+
+                if (data[i].done == "false") {
+                    let task = addTaskDisplay(data[i].name, data[i].description, data[i].deadline, data[i].notification, data[i].project, data[i].label);
+                    container.appendChild(task);
+                    setCorrectPriority(data[i].priority);
+                    if (data[i].deadline == new Date().toISOString().slice(0, 10)) {
+                        incTodayTask();
+                    }
+                    incTaskNum();
+                }
+            }
+        });
+}
+
+function displayTodayTasks() {
+    fetch("http://localhost:5000/getTasks")
+    .then((res) => res.json())
+    .then((data) => {
+        for (let i = 0; i < data.length; i++){
+            console.log(data[i]);
+
+            let container = document.getElementById("task-display");
+
+            if (data[i].done == "false") {
+                incTaskNum();
+                if (data[i].deadline == new Date().toISOString().slice(0, 10)) {
+                    let task = addTaskDisplay(data[i].name, data[i].description, data[i].deadline, data[i].notification, data[i].project, data[i].label);
+                    container.appendChild(task);
+                    setCorrectPriority(data[i].priority);
+                    incTodayTask();
+                }
+            }
+        }
+    });
 }
