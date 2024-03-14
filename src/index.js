@@ -19,23 +19,23 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
 app.get('/', (req, res) => {
-    res.render("login");
+    res.render("./pages/login");
 })
 
 app.get('/login', (req, res) => {
-    res.render("login");
+    res.render("./pages/login");
 })
 
 app.get('/signup', (req, res) => {
-    res.render("signup");
+    res.render("./pages/signup");
 })
 
 app.get('/project', (req, res) => {
     if (login) {
-        res.render("project");
+        res.render("./pages/project");
     }
     else {
-        res.redirect("login");
+        res.redirect("./pages/login");
     }
 })
 
@@ -45,19 +45,19 @@ app.get('/userData', (req, res) => {
 
 app.get('/inbox', (req, res) => {
     if (login) {
-        res.render("inbox");
+        res.render("./pages/inbox");
     }
     else {
-        res.redirect("login");
+        res.redirect("./pages/login");
     }
 })
 
 app.get('/today', (req, res) => {
     if (login) {
-        res.render("today");
+        res.render("./pages/today");
     }
     else {
-        res.redirect("login");
+        res.redirect("./pages/login");
     }
 })
 
@@ -81,7 +81,7 @@ app.post('/signup', async (req, res) => {
         //console.log(userData);
 
         //login succesfully show on page
-        res.redirect("login");
+        res.redirect("./pages/login");
     }
 
     
@@ -99,7 +99,7 @@ app.post('/login', async (req, res) => {
             login = true;
             user.username = req.body.username;
             user.password = req.body.password;
-            res.redirect("inbox");
+            res.redirect("./pages/inbox");
         }
         else {
             res.send("wrong password"); //

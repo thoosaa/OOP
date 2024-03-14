@@ -86,3 +86,14 @@
 .task-label .material-symbols-outlined{
     color:#f679f8 !important;
 }
+
+.task-empty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-empty img{
+    width: 450px;
+    margin: 100px;
+}

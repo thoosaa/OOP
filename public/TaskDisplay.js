@@ -78,8 +78,13 @@ export class TaskDisplay{
                     this.#addTaskToPage(res[0].tasks[i]);
                     //correct task num and today task num
                 }
+                }
+                
             }
-        }
+            else
+            {
+                this.#emptyScreen();
+            }
     });
     }
         
@@ -186,6 +191,10 @@ export class TaskDisplay{
 
     #isToday(date) {
         return date == new Date().toISOString().slice(0, 10);
+    }
+
+    #emptyScreen() {
+        document.getElementById('task-display').innerHTML = `<div class="task-empty"><img src="https://preview.redd.it/7gr4xbmxp0s91.jpg?auto=webp&s=af151dc8095d78be58e44c18bf72d103f34d9958"></div>`
     }
 }
 

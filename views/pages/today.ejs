@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="navbar.css" />
-        <link rel="stylesheet" type="text/css" href="pages-style.css" />
-        <link rel="stylesheet" type="text/css" href="task-style.css" />
+        <link rel="stylesheet" type="text/css" href="pages/navbar.css" />
+        <link rel="stylesheet" type="text/css" href="pages/pages-style.css" />
+        <link rel="stylesheet" type="text/css" href="pages/task-style.css" />
         <link
             rel="stylesheet"
             type="text/css"
@@ -28,7 +28,7 @@
         />
     </head>
     <body>
-        <%- include('partials/navbar') %>
+        <%- include('../partials/navbar') %>
         <main>
             <div id="upper-panel">
                 <div id="display">
@@ -40,10 +40,10 @@
             <div id="task-display"></div>
         </main>
 
-        <%- include('partials/add-task-widget') %> <%-
-        include('partials/add-project-widget') %><%-
-        include('partials/add-label-widget') %><%-
-        include('partials/change-task-widget') %>
+        <%- include('../partials/add-task-widget') %> <%-
+        include('../partials/add-project-widget') %><%-
+        include('../partials/add-label-widget') %><%-
+        include('../partials/change-task-widget') %>
 
         <script>
             fetch("http://localhost:5000/userData")
@@ -54,10 +54,6 @@
                         data.username;
                 });
         </script>
-        <script type="module" src="TaskDisplay.js"></script>
-        <script type="module" src="taskHandler.js"></script>
-        <script type="module" src="projectHandler.js"></script>
-        <script type="module" src="labelHandler.js"></script>
-        <script type="module" src="projectDisplayHandler.js"></script>
+        <%- include('../partials/scripts-included') %>
     </body>
 </html>

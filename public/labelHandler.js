@@ -1,3 +1,5 @@
+import * as DB from './DataBase.js';
+
 window.addEventListener("load", (event) => {
     fetch("http://localhost:5000/getLabels")
         .then((res) => res.json())
@@ -27,7 +29,7 @@ addLabelBtn.addEventListener('click', (e) => {
     };
 
     document.getElementById('add-label-widget').style.visibility = "hidden";
-    sendLabelToDB(labelObj);
+    DB.default.addLabel(labelObj);
 })
 
 function addLabelDisplay(LabelName, LabelColor) {
@@ -42,17 +44,4 @@ function addLabelDisplay(LabelName, LabelColor) {
     const labelIcons = document.getElementsByClassName('material-symbols-outlined labelIcon');
     const labelIcon = labelIcons[labelIcons.length - 1];
     labelIcon.style.color = LabelColor;
-}
-
-async function sendLabelToDB(labelObj) {
-    await fetch("http://localhost:5000/addLabel", {
-        method: 'POST',
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify({
-            name: labelObj.name, 
-            color: labelObj.color
-        })
-    })
 }

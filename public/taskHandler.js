@@ -1,4 +1,5 @@
 import * as TD from './TaskDisplay.js';
+import * as DB from './DataBase.js';
 
 window.addEventListener('load', (event) => {
     event.preventDefault();
@@ -30,7 +31,7 @@ addTaskBtn.addEventListener("click", (e) => {
         label: document.getElementById("label").value,
         done: "false",
     }
-    sendTaskToDB(taskObj);
+    DB.default.addTask(taskObj);
     document.getElementById('add-task-widget').style.visibility = 'hidden';
 });
 
@@ -112,7 +113,7 @@ taskContainer.addEventListener("click", (event) => {
         
         let oldObj = Object.assign({}, taskObj);
         oldObj.done = "false";
-        updateTaskInDB(oldObj, taskObj);
+        DB.default.updateTask(oldObj, taskObj);
 
         if (taskObj.deadline == new Date().toISOString().slice(0, 10)) {
             decTodayTask();
@@ -180,7 +181,7 @@ changeTask.addEventListener('click', (e) => {
     console.log("oldobj",oldObject);
     console.log("taskObj",taskObj);
 
-    updateTaskInDB(oldObject, taskObj);
+    DB.default.updateTask(oldObject, taskObj);
     document.getElementById('change-task-widget').style.visibility = 'hidden';
     removeOptionsProject('newProject');
     removeOptionsLabel('newLabel');
@@ -189,42 +190,6 @@ changeTask.addEventListener('click', (e) => {
     TD.default.correctPageDisplay(document.getElementById('page-name').innerText);
     
 });
-
-function sendTaskToDB(taskObj) {
-    fetch("http://localhost:5000/addTask", {
-        method: 'POST',
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify({
-            name: taskObj.name,
-            description: taskObj.description,
-            deadline: taskObj.deadline,
-            notification: taskObj.notification,
-            priority: taskObj.priority,
-            project: taskObj.project,
-            label: taskObj.label,
-            done: "false"
-        })
-    }).then((res) => {
-        TD.default.correctPageDisplay(document.getElementById('page-name').innerText);
-    });
-}
-
-async function updateTaskInDB(oldObject, newObject) {
-    await fetch("http://localhost:5000/updateTask", {
-        method: 'POST',
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify({
-            oldObject,
-            newObject
-        })
-    }).then((res) => {
-        TD.default.correctPageDisplay(document.getElementById('page-name').innerText);
-    });
-}
 
 function addOptionsProject(id) {
     let projectOptions = document.getElementById(id);
