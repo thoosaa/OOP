@@ -185,21 +185,16 @@ changeTask.addEventListener('click', (e) => {
         label: document.getElementById("newLabel").value,
         done: "false",
     }
-    console.log(oldObject);
+    console.log("oldobj",oldObject);
+    console.log("taskObj",taskObj);
 
     updateTaskInDB(oldObject, taskObj);
     document.getElementById('change-task-widget').style.visibility = 'hidden';
     removeOptionsProject('newProject');
     removeOptionsLabel('newLabel');
+    clearOldTask();
 
-    if (document.getElementById('page-name').innerText == 'Входящие') {
-        document.getElementById('task-display').innerHTML = "";
-        displayAllTasks();
-    }
-    else if (document.getElementById('page-name').innerText == 'Сегодня') {
-        document.getElementById('task-display').innerHTML = "";
-        displayTodayTasks();
-    }
+    //location.reload();
 });
 
 async function sendTaskToDB(taskObj) {
@@ -209,7 +204,14 @@ async function sendTaskToDB(taskObj) {
             "Content-Type": 'application/json'
         },
         body: JSON.stringify({
-            taskObj
+            name: taskObj.name,
+            description: taskObj.description,
+            deadline: taskObj.deadline,
+            notification: taskObj.notification,
+            priority: taskObj.priority,
+            project: taskObj.project,
+            label: taskObj.label,
+            done: "false"
         })
     })
 }
@@ -367,46 +369,13 @@ function getPriority(color) {
     else return 4;
 }
 
-function displayAllTasks() {
-    fetch("http://localhost:5000/getTasks")
-        .then((res) => res.json())
-        .then((data) => {
-            for (let i = 0; i < data.length; i++){
-                console.log(data[i]);
-
-                let container = document.getElementById("task-display");
-
-                if (data[i].done == "false") {
-                    let task = addTaskDisplay(data[i].name, data[i].description, data[i].deadline, data[i].notification, data[i].project, data[i].label);
-                    container.appendChild(task);
-                    setCorrectPriority(data[i].priority);
-                    if (data[i].deadline == new Date().toISOString().slice(0, 10)) {
-                        incTodayTask();
-                    }
-                    incTaskNum();
-                }
-            }
-        });
-}
-
-function displayTodayTasks() {
-    fetch("http://localhost:5000/getTasks")
-    .then((res) => res.json())
-    .then((data) => {
-        for (let i = 0; i < data.length; i++){
-            console.log(data[i]);
-
-            let container = document.getElementById("task-display");
-
-            if (data[i].done == "false") {
-                incTaskNum();
-                if (data[i].deadline == new Date().toISOString().slice(0, 10)) {
-                    let task = addTaskDisplay(data[i].name, data[i].description, data[i].deadline, data[i].notification, data[i].project, data[i].label);
-                    container.appendChild(task);
-                    setCorrectPriority(data[i].priority);
-                    incTodayTask();
-                }
-            }
-        }
-    });
+function clearOldTask(){
+    oldObject.name = "";
+    oldObject.description = "";
+    oldObject.deadline = "";
+    oldObject.notification = "";
+    oldObject.priority = "";
+    oldObject.project= "";
+    oldObject.label = "";
+    oldObject.done = "false";
 }

@@ -30,6 +30,15 @@ app.get('/signup', (req, res) => {
     res.render("signup");
 })
 
+app.get('/project', (req, res) => {
+    if (login) {
+        res.render("project");
+    }
+    else {
+        res.redirect("login");
+    }
+})
+
 app.get('/userData', (req, res) => {
     res.json({ username: user.username, password: user.password });
 })
@@ -155,6 +164,13 @@ app.post('/updateTask', async (req, res) => {
         }
       );
 })
+
+app.post('/getWithProject', async (req, res) => {
+    console.log(req.body);
+    const data = await collection.find({ name: user.username ,"tasks.project": req.body.currProjectName }, 'tasks');
+    res.json(data);
+    
+});
 
 app.listen(PORT, () => {
     console.log('Server running on port 5000')
