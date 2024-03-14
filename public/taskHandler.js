@@ -1,3 +1,10 @@
+import * as TD from './TaskDisplay.js';
+
+window.addEventListener('load', (event) => {
+    event.preventDefault();
+    TD.default.correctPageDisplay(document.getElementById('page-name').innerText);
+});
+
 let oldObject = {
     name: "", 
     description: "", 
@@ -13,10 +20,6 @@ const addTaskBtn = document.getElementById("add-task-button");
 
 addTaskBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    let container = document.getElementById("task-display");
-
-    let task = addTaskDisplay(document.getElementById("taskName").value, document.getElementById("taskName").value, document.getElementById("deadline").value, document.getElementById("notification").value,document.getElementById("project").value, document.getElementById("label").value);
-
     let taskObj = {
         name: document.getElementById("taskName").value, 
         description: document.getElementById("description").value, 
@@ -27,19 +30,8 @@ addTaskBtn.addEventListener("click", (e) => {
         label: document.getElementById("label").value,
         done: "false",
     }
-
-    container.appendChild(task);
-
-    setCorrectPriority(document.getElementById("priority").value);
-
-    document.getElementById("add-task-widget").style.visibility = "hidden";
-    
-    if (document.getElementById("deadline").value == new Date().toISOString().slice(0, 10)) {
-        incTodayTask();
-    }
-    incTaskNum();
-
     sendTaskToDB(taskObj);
+    document.getElementById('add-task-widget').style.visibility = 'hidden';
 });
 
 const navAddButton = document.getElementById("add-task");
@@ -193,12 +185,13 @@ changeTask.addEventListener('click', (e) => {
     removeOptionsProject('newProject');
     removeOptionsLabel('newLabel');
     clearOldTask();
-
-    //location.reload();
+    
+    TD.default.correctPageDisplay(document.getElementById('page-name').innerText);
+    
 });
 
-async function sendTaskToDB(taskObj) {
-    await fetch("http://localhost:5000/addTask", {
+function sendTaskToDB(taskObj) {
+    fetch("http://localhost:5000/addTask", {
         method: 'POST',
         headers: {
             "Content-Type": 'application/json'
@@ -213,7 +206,9 @@ async function sendTaskToDB(taskObj) {
             label: taskObj.label,
             done: "false"
         })
-    })
+    }).then((res) => {
+        TD.default.correctPageDisplay(document.getElementById('page-name').innerText);
+    });
 }
 
 async function updateTaskInDB(oldObject, newObject) {
@@ -226,104 +221,9 @@ async function updateTaskInDB(oldObject, newObject) {
             oldObject,
             newObject
         })
-    })
-}
-
-export function addTaskDisplay(Name, Description, Deadline, Notification, Project, Label) {
-    let task = document.createElement("div");
-    task.className = "task";
-    let htmlToAdd = `
-    <div>
-        <button class="task-button">
-            <span class="material-symbols-outlined task-check">
-                done
-            </span>
-        </button>
-    </div>
-    <div class="task-in">
-        <p class="task-name">${Name}</p>
-        <p class="task-des">${Description}</p>
-        <div class="task-params">
-            <span class="material-symbols-outlined">
-                event_upcoming
-            </span>
-            <span class="task-datetime">${Deadline}</span>`;
-    if (Notification != "") {
-        htmlToAdd += `<span class="material-symbols-outlined task-notification">
-        alarm
-    </span>
-    <span class="task-notification">${Notification}</span>`;
-    }
-    if (Project !== "inbox") {
-        htmlToAdd += `<span class="material-symbols-outlined task-project">
-        tag
-    </span>
-    <span class="task-project">${Project}</span>`;
-    }
-    if (Label !== "nolabel") {
-        htmlToAdd += `<span class="material-symbols-outlined task-label">
-        label
-    </span>
-    <span class="task-label">${Label}</span>`;
-    }
-
-    htmlToAdd += `</div> </div>`;
-    task.innerHTML = htmlToAdd;
-    return task;
-}
-  
-export function setCorrectPriority(Priority) {
-    const buttons = document.getElementsByClassName("task-button");
-    const button = buttons[buttons.length - 1];
-    
-    let bg_color, color;
-
-    switch (Priority) {
-        case "1":
-            bg_color = "rgba(222, 76, 74, 0.1)";
-            color = "#de4c4a";
-            break;
-        case "2":
-            bg_color = "rgba(255, 166, 0, 0.1)";
-            color = "#ffa600";
-            break;
-        case "3":
-            bg_color = "rgba(60, 0, 255, 0.1)";
-            color = "#3c00ff";
-            break;
-        case "4":
-            bg_color = "rgba(105, 105, 105, 0.1)";
-            color = "#696969";
-            break;
-    }
-
-    button.style.color = color;
-    button.style.borderColor = color;
-    button.style.backgroundColor = bg_color;
-}
-
-export function incTaskNum() {
-    let taskCount = parseInt(document.getElementById("icoming-task-number").innerHTML);
-    taskCount++;
-    document.getElementById("icoming-task-number").innerHTML = taskCount;
-}
-
-export function incTodayTask() {
-    let taskCount = parseInt(document.getElementById("today-task-number").innerHTML);
-    taskCount++;
-    document.getElementById("today-task-number").innerHTML = taskCount;
-}
-
-export function decTaskNum() {
-    let taskCount = parseInt(document.getElementById("icoming-task-number").innerHTML);
-    taskCount--;
-    document.getElementById("icoming-task-number").innerHTML = taskCount;
-}
-
-export function decTodayTask() {
-    let taskCount = parseInt(document.getElementById("today-task-number").innerHTML);
-    taskCount--;
-    document.getElementById("today-task-number").innerHTML = taskCount;
+    }).then((res) => {
+        TD.default.correctPageDisplay(document.getElementById('page-name').innerText);
+    });
 }
 
 function addOptionsProject(id) {

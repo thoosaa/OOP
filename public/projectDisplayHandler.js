@@ -1,5 +1,6 @@
 const projectList = document.getElementById('projects-list'); 
 projectList.addEventListener('click', (event) => {
+    console.log('hjhvjhvjv');
     let list = event.target.closest('li');
     if (list) {
         let currProjectName = list.getElementsByTagName('span')[1].innerText;

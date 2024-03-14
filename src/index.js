@@ -116,7 +116,8 @@ app.post('/addTask', async (req, res) => {
         $push: {
           tasks: req.body
         }
-      }).exec();
+    }).exec();
+    res.json({state:"okay"});
 })
 
 app.post('/addProject', async (req, res) => {
@@ -153,7 +154,6 @@ app.get('/getLabels', async (req, res) => {
 })
 
 app.post('/updateTask', async (req, res) => {
-    console.log(req.body);
     const taskName = req.body["oldObject"].name;
     await collection.updateOne(
         { name: user.username, "tasks.name": taskName },
@@ -167,9 +167,9 @@ app.post('/updateTask', async (req, res) => {
 
 app.post('/getWithProject', async (req, res) => {
     console.log(req.body);
-    const data = await collection.find({ name: user.username ,"tasks.project": req.body.currProjectName }, 'tasks');
+    const data = await collection.find({ name: user.username, "tasks.project": req.body.projectName }, 'tasks');
+    console.log(data);
     res.json(data);
-    
 });
 
 app.listen(PORT, () => {
