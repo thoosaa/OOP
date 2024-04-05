@@ -1,0 +1,31 @@
+<div id="add-project-widget">
+    <p>Добавить проект</p>
+    <form id="add-project-form">
+        <div id="project-info">
+            <label> Название </label>
+            <input
+                type="text"
+                id="projectName"
+                name="projectName"
+                required
+                autocomplete="off"
+            />
+            <label> Цвет </label>
+            <select id="color" name="color">
+                <option value="#2364aa">Темно-синий</option>
+                <option value="3da5d9">Голубой</option>
+                <option value="#73bfb8">Мятный</option>
+                <option value="#fec601">Желтый</option>
+                <option value="#ea7317">Оранжевый</option>
+            </select>
+        </div>
+
+        <hr />
+        <div id="add-project-buttons">
+            <button id="close-project-widget">Отмена</button>
+            <button type="submit" id="add-project-button">
+                Добавить проект
+            </button>
+        </div>
+    </form>
+</div>

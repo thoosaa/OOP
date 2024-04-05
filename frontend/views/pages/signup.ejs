@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="pages/reg-style.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0"
+        />
+        <title>Sign Up - Todoist</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHM0OYfiFeMI2p9MWie0CvL99U4GA1gf6_kayTt_kBblFwHwo8BW8JXlqfnYxKPmmBUwv1PH4pdQ7t_SNzEV_.2J3d4JjdkXiNaa0xNklzx5ANhOfXiCoWf71sEOCPn.WJrLE9Qydp5V9jK3_rKBgsq0-&format=source"
+        />
+    </head>
+    <body>
+        <main>
+            <h2>Зарегистрироваться</h2>
+            <div class="container">
+                <form action="/auth/signup" method="post">
+                    <div class="info-div">
+                        <label for="username">Username:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            autocomplete="off"
+                            required
+                        />
+                    </div>
+                    <div class="info-div">
+                        <label for="username">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            autocomplete="off"
+                            required
+                        />
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p>
+                    Уже есть аккаунт?
+                    <a href="/auth/login">Войти</a>
+                </p>
+            </div>
+        </main>
+    </body>
+</html>

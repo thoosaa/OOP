@@ -1,0 +1,68 @@
+<nav>
+    <div id="dropdown-cont">
+        <div id="user-icon-container">
+            <button id="user">
+                <img
+                    src="https://preview.redd.it/can-yall-give-me-your-best-tomie-pfp-v0-ar1glvm2u0bb1.jpg?width=1913&format=pjpg&auto=webp&s=6eeda720cf87efd74a07c9911fdb18d6881fa724"
+                    alt="profile picture"
+                />
+                <span id="username">Евлампий</span>
+                <span class="material-symbols-outlined"> stat_minus_1 </span>
+            </button>
+
+            <button>
+                <span class="material-symbols-outlined" id="open-close"> </span>
+            </button>
+        </div>
+    </div>
+
+    <button id="add-task">
+        <span class="material-symbols-outlined"> add_circle </span>
+        <span>Добавить задачу</span>
+    </button>
+
+    <div id="pages-nav" tabindex="1">
+        <div class="section" id="inbox">
+            <a href="/inbox">
+                <span class="material-symbols-outlined"> inbox </span>
+                <span>Входящие</span>
+            </a>
+            <div class="num-container">
+                <span id="icoming-task-number"> 0 </span>
+            </div>
+        </div>
+
+        <div class="section" id="today">
+            <a href="/today">
+                <span class="material-symbols-outlined"> today </span>
+                <span>Сегодня</span>
+            </a>
+            <div class="num-container">
+                <span id="today-task-number"> 0 </span>
+            </div>
+        </div>
+
+        <div class="section" id="calendar">
+            <a href="/calendar">
+                <span class="material-symbols-outlined"> calendar_month </span>
+                <span>Предстоящие</span>
+            </a>
+        </div>
+
+        <div id="my-projects-display">
+            <button id="add-new-Project">
+                <span>Мои проекты</span>
+                <span class="material-symbols-outlined"> add </span>
+            </button>
+            <ul id="projects-list"></ul>
+        </div>
+
+        <div id="my-labels-display">
+            <button id="add-new-label">
+                <span>Метки</span>
+                <span class="material-symbols-outlined"> add </span>
+            </button>
+            <ul id="labels-list"></ul>
+        </div>
+    </div>
+</nav>
