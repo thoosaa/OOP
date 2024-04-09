@@ -1,0 +1,95 @@
+.modal {
+    position: fixed; 
+    top: 45%; 
+    left: 40%; 
+    transform: translate(-45%, -40%); 
+    background-color: #fff; 
+    border-radius: 8px; 
+    z-index: 1000;
+}
+
+#add-task-modal, #change-task-widget{
+    margin-left: 246px;
+    background-color: #1e1e1e;
+    width: 548px;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #6b6b6b;
+}
+
+#priority, #deadline, #notification, #project,#label,
+#newDeadline, #newNotification, #newLabel, #newPriority, #newProject{
+    border: 1px solid #6b6b6b;
+    background-color: #1e1e1e;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}
+
+#taskName, #newTaskName{
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+#description, #newDescription{
+    font-size: 12px;
+}
+
+#taskName, #description,#newTaskName,#newDescription{
+    border: none;
+    padding: 2px;
+    background-color: inherit;
+    color: white;
+}
+
+input:focus {
+    outline: none;
+}
+
+.task-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.task-params{
+    margin: 10px 0;
+    display: flex;
+    gap: 5px;
+}
+
+hr{
+    margin: 15px 0 10px 0;
+    border-top: 0px solid #6b6b6b;
+}
+
+#change-task-widget h2{
+    margin-left: -23px;
+    margin-bottom: 10px;
+}
+
+.task-widget-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-buttons{
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+#add-task-button, #change-task-button{
+    border: 1px solid #de4c4a;
+    background-color: #de4c4a;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.close{
+    border: 1px solid #363636;
+    background-color: #363636;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
