@@ -1,3 +1,5 @@
+import tokenUsername from "../classes/tokenUsername.js";
+
 export class TaskDisplay{
     #container = document.getElementById("task-display");
 
@@ -14,9 +16,9 @@ export class TaskDisplay{
             pageName = 'label';
         }
 
-        console.log(document.getElementById('page-name').innerHTML);
+        //console.log(document.getElementById('page-name').innerHTML);
         document.getElementById('task-display').innerHTML = '';
-        console.log(pageName);
+        //console.log(pageName);
         switch (pageName) {
             case 'Входящие':
                 this.#displayAll();
@@ -34,35 +36,33 @@ export class TaskDisplay{
     }
 
     #displayAll() {
-        fetch("http://localhost:5000/getTasks")
+        fetch(`http://localhost:5000/task/get?username=${tokenUsername.getUsername()}`)
         .then((res) => res.json())
-        .then((data) => {
-            for (let i = 0; i < data.length; i++){
-                //console.log(data[i]);
-                if (data[i].done == "false") {
-                    this.#addTaskToPage(data[i]);
-                if (this.#isToday(data[i].deadline)) {
-                    this.#incTodayTask();
+            .then((data) => {
+                if (data.length == 0) {
+                    this.#emptyScreen();
                 }
-                this.#incTaskNum();
-                }   
-            }
+                else {
+                    for (let i = 0; i < data.length; i++) {
+                        this.#addTaskToPage(data[i]);
+                        //console.log(data[i]);
+                    }
+                }
         });
     }
 
     #displayToday() {
         fetch("http://localhost:5000/getTasks")
         .then((res) => res.json())
-        .then((data) => {
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].done == "false") {
-                    this.#incTaskNum();
-                    if (this.#isToday(data[i].deadline)) {
+            .then((data) => {
+                if (data.length == 0) {
+                    this.#emptyScreen();
+                }
+                else {
+                    for (let i = 0; i < data.length; i++) {
                         this.#addTaskToPage(data[i]);
-                        this.#incTodayTask();
                     }
                 }
-            }
         });
     }
 
@@ -122,18 +122,6 @@ export class TaskDisplay{
                 this.#emptyScreen();
             }
     });
-    }
-        
-    #incTaskNum() {
-        let taskCount = parseInt(document.getElementById("icoming-task-number").innerHTML);
-        taskCount++;
-        document.getElementById("icoming-task-number").innerHTML = taskCount;
-    }
-    
-    #incTodayTask() {
-        let taskCount = parseInt(document.getElementById("today-task-number").innerHTML);
-        taskCount++;
-        document.getElementById("today-task-number").innerHTML = taskCount;
     }
 
     #setCorrectPriority(Priority) {
@@ -219,14 +207,9 @@ export class TaskDisplay{
     }
     
     #addTaskToPage(taskObj) {
-        console.log(taskObj);
         let task = this.#addTaskDisplay(taskObj.name, taskObj.description, taskObj.deadline, taskObj.notification, taskObj.project, taskObj.label);
         this.#container.appendChild(task);
         this.#setCorrectPriority(taskObj.priority);
-    }
-
-    #isToday(date) {
-        return date == new Date().toISOString().slice(0, 10);
     }
 
     #emptyScreen() {

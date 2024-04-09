@@ -10,6 +10,11 @@
         />
         <link rel="stylesheet" type="text/css" href="styles/pages/navbar.css" />
         <link rel="stylesheet" type="text/css" href="styles/pages/task.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="styles/modal/task-modal.css"
+        />
         <!--<link
             rel="stylesheet"
             type="text/css"
@@ -46,8 +51,6 @@
             <div id="task-display"></div>
         </main>
     </body>
-    <script>
-        const el = document.getElementById("add-task-modal");
-        //el.showModal();
-    </script>
+    <script type="module" src="./scripts/handlers/addTaskHandler.js"></script>
+    <script type="module" src="./scripts/handlers/pageLoadHandler.js"></script>
 </html>

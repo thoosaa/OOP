@@ -4,6 +4,7 @@ const session = require('express-session')
 const path = require('path')
 const authRouter = require('./backend/routers/authRouter')
 const pagesRouter = require('./backend/routers/pagesRouter')
+const taskRouter = require('./backend/routers/taskRouter')
 
 const PORT = 5000;
 
@@ -22,6 +23,7 @@ app.set('view engine', 'ejs');
 
 app.use('/auth', authRouter)
 app.use('/', pagesRouter)
+app.use('/task', taskRouter)
 
 const start = async () => {
     try {
