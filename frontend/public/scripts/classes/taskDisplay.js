@@ -45,7 +45,7 @@ export class TaskDisplay{
                 else {
                     for (let i = 0; i < data.length; i++) {
                         this.#addTaskToPage(data[i]);
-                        //console.log(data[i]);
+                        console.log(data[i]);
                     }
                 }
         });

@@ -23,22 +23,68 @@ addTaskBtn.addEventListener('click', async (e) => {
 
     const formData = new FormData(document.getElementById("add-task-form"));
 
-    const taskObj = {};
+    let taskObj = {};
     formData.forEach((value, key) => {
         taskObj[key] = value;
     });
+
     taskObj['done'] = 'false';
 
-    fetch(`http://localhost:5000/task/add?username=${tokenUsername.getUsername()}`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(taskObj)
-    }).then((res) => {
-        console.log("KLHKHKKKKkk");
-        taskDisplay.correctPageDisplay(document.getElementById('page-name').innerText);
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            switch (input.id) {
+                case "description":
+                    taskObj['description'] = "";
+                    break;
+                case "notification":
+                    taskObj['notification'] = "";
+                    break;
+                case "deadline":
+                    taskObj['deadline'] = "";
+                    break;
+            }
+        }
     });
 
-    addTaskModal.close();
+    if (document.getElementById('label').value.trim() == "") {
+        taskObj['label'] = "nolabel";
+    }
+
+    console.log("OHRANA OTMENA", document.getElementById('label').value.trim() == "");
+    
+    taskObj = correctObj(taskObj);
+    console.log(taskObj);
+
+    try {
+        const response = await fetch(`http://localhost:5000/task/add?username=${tokenUsername.getUsername()}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(taskObj)
+        });
+
+        if (response.ok) {
+            taskDisplay.correctPageDisplay(document.getElementById('page-name').innerText);
+            addTaskModal.close();
+        } else {
+            console.error('Ошибка при выполнении запроса');
+        }
+
+
+    } catch (error) {
+        console.error('Ошибка при выполнении запроса:', error);
+    }
 })
+
+function correctObj(taskObj) {
+    const orderedKeys = ['name', 'description', 'deadline', 'notification', 'priority', 'project', 'label', 'done'];
+    const orderedTaskObj = {};
+    orderedKeys.forEach(key => {
+        if (taskObj.hasOwnProperty(key)) {
+            orderedTaskObj[key] = taskObj[key];
+        }
+    });
+    return orderedTaskObj;
+}
