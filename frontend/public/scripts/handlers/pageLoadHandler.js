@@ -8,9 +8,5 @@ window.addEventListener('load',async (e) => {
     document.getElementById('username').innerText = tokenUsername.getUsername();
     taskDisplay.correctPageDisplay(document.getElementById('page-name').innerHTML);
 
-    const countAll = await taskCount.getAll();
-    document.getElementById('icoming-task-number').innerText = countAll;
-
-    const countToday = await taskCount.getToday();
-    document.getElementById('today-task-number').innerText = countToday;
+    taskCount.correctTaskCount();
 })
