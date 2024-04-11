@@ -10,6 +10,8 @@ router.get('/getDone', controller.getDone);
 
 router.get('/getToday', controller.getToday);
 
+router.get('/getProject', controller.getProject);
+
 router.get('/countAll', controller.countAll);
 
 router.get('/countToday', controller.countToday);

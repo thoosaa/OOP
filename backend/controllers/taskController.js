@@ -39,6 +39,20 @@ class taskController{
         }
     }
 
+    async getProject(req, res) {
+        const { username, projectName } = req.query;
+
+        try {
+            const user = await User.findOne({ name: username });
+            const tasks = user.tasks.filter(task => task.done == "false" && task.project == projectName);
+            res.json(tasks);
+        }
+        catch {
+            console.log(error);
+            res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+        }
+    }
+
     async countAll(req, res) {
         const username = req.query.username;
     

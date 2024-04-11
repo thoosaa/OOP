@@ -30,7 +30,7 @@
     font-size: 12px;
 }
 
-#name, #color{
+#add-project-modal #name,#add-project-modal #color{
     height: 30px;
     background-color: inherit;
     border: 0.5px solid #6b6b6b;
@@ -64,5 +64,5 @@
 
 #add-project-modal hr, #add-label-modal hr{
     margin: 15px 0 10px 0;
-    border-top: 0px solid #6b6b6b;
+    border-top: 0.5px solid #6b6b6b;
 }

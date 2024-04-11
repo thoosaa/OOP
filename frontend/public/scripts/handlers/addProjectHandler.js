@@ -1,3 +1,6 @@
+import projectDisplay from "../classes/projectDisplay.js";
+import projectMethods from "../classes/projectMethods.js";
+
 const addProjectBtnNav = document.getElementById("add-new-Project");
 const addProjectModal = document.getElementById('add-project-modal');
 const addProjectBtn = document.getElementById('add-project-button');
@@ -6,6 +9,7 @@ const form = document.getElementById('add-project-form');
 
 addProjectBtnNav.addEventListener("click", (e) => {
     e.preventDefault();
+    console.log('jhjdhj');
     addProjectModal.showModal();
 });
 
@@ -14,15 +18,11 @@ closeProjectModal.addEventListener('click', (e) => {
     addProjectModal.close();
 })
 
-addProjectBtn.addEventListener('click', (e) => {
+addProjectBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
+    let project = projectMethods.getProjectFromForm(form);
+    await projectDisplay.display();
 
-    let project = {};
-    formData.forEach((value, key) => {
-        project[key] = value;
-    })
-
-    
+    projectDisplay.addProjectDisplay(project.name, project.color );
 })

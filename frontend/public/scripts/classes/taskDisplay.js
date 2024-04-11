@@ -86,31 +86,11 @@ export class TaskDisplay{
     }
 
     #displayProject(projectName) {
-        fetch("http://localhost:5000/getWithProject", {
-            method: 'POST',
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                projectName
-        })})
+        fetch(`http://localhost:5000/task/getProject?username=${tokenUsername.getUsername()}&projectName=${projectName}`)
         .then((res) => res.json())
         .then((res) => {
-            if (res[0] != undefined) {
-                console.log(res[0].tasks);
-                for (let i = 0; i < res[0].tasks.length; i++) {
-                    console.log(res[0].tasks[i].project, projectName);
-                    console.log(res[0].tasks[i].project === projectName);
-                if (res[0].tasks[i].project === projectName) {
-                    this.#addTaskToPage(res[0].tasks[i]);
-                    //correct task num and today task num
-                }
-                }
-                
-            }
-            else
-            {
-                this.#emptyScreen();
+            for (let i = 0; i < res.length; i++) {
+                this.#addTaskToPage(res[i]);
             }
         });
     }

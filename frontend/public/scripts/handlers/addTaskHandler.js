@@ -1,3 +1,4 @@
+import formOptions from "../classes/formOptions.js";
 import taskMethods from "../classes/taskMethods.js";
 
 const addTaskNavBtn = document.getElementById('add-task');
@@ -12,6 +13,9 @@ const form = document.getElementById("add-task-form");
 addTaskNavBtn.addEventListener('click', (e) => {
     e.preventDefault();
     form.reset();
+
+    formOptions.setProjectOptions(document.getElementById('project'));
+
     addTaskModal.showModal();
 })
 

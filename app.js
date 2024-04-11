@@ -5,6 +5,7 @@ const path = require('path')
 const authRouter = require('./backend/routers/authRouter')
 const pagesRouter = require('./backend/routers/pagesRouter')
 const taskRouter = require('./backend/routers/taskRouter')
+const projectRouter = require('./backend/routers/projectRouter')
 
 const PORT = 5000;
 
@@ -24,6 +25,7 @@ app.set('view engine', 'ejs');
 app.use('/auth', authRouter)
 app.use('/', pagesRouter)
 app.use('/task', taskRouter)
+app.use('/project', projectRouter)
 
 const start = async () => {
     try {

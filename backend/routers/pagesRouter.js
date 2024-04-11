@@ -18,6 +18,10 @@ router.get('/completedTasks', isAuthenticated, (req, res) => {
     res.render('./pages/completedTasks');
 })
 
+router.get('/project', isAuthenticated, (req, res) => {
+    res.render('./pages/project');
+})
+
 router.get('/', (req, res) => {
     res.redirect('/auth/login');
 })
