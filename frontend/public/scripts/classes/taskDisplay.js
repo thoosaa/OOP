@@ -26,6 +26,9 @@ export class TaskDisplay{
             case 'Сегодня':
                 this.#displayToday();
                 break;
+            case 'Выполненные задачи':
+                this.#displayDone();
+                break;
             case 'project':
                 this.#displayProject(currProjectName);
                 break;
@@ -51,8 +54,24 @@ export class TaskDisplay{
         });
     }
 
+    #displayDone() {
+        fetch(`http://localhost:5000/task/getDone?username=${tokenUsername.getUsername()}`)
+        .then((res) => res.json())
+            .then((data) => {
+                if (data.length == 0) {
+                    this.#emptyScreen();
+                }
+                else {
+                    for (let i = 0; i < data.length; i++) {
+                        this.#addTaskToPage(data[i]);
+                        console.log(data[i]);
+                    }
+                }
+        });
+    }
+
     #displayToday() {
-        fetch("http://localhost:5000/getTasks")
+        fetch(`http://localhost:5000/task/getToday?username=${tokenUsername.getUsername()}`)
         .then((res) => res.json())
             .then((data) => {
                 if (data.length == 0) {

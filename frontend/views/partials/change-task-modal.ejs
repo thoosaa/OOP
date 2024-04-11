@@ -1,0 +1,62 @@
+<dialog class="modal" id="change-task-modal">
+    <h2>Редактировать задачу</h2>
+    <form id="change-task-form">
+        <div class="task-info">
+            <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Название задачи"
+                autocomplete="off"
+            />
+            <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="Описание"
+                autocomplete="off"
+            />
+        </div>
+
+        <div class="task-params">
+            <input
+                placeholder="Срок выполнения"
+                type="text"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+                id="deadline"
+                name="deadline"
+                required
+            />
+            <input
+                placeholder="Напоминание"
+                type="text"
+                onfocus="(this.type='datetime-local')"
+                onblur="(this.type='text')"
+                id="notification"
+            />
+            <select id="priority" name="priority">
+                <option value="1">Приоритет 1</option>
+                <option value="2">Приоритет 2</option>
+                <option value="3">Приоритет 3</option>
+                <option value="4">Приоритет 4</option>
+            </select>
+
+            <select id="label" name="label"></select>
+        </div>
+
+        <hr />
+        <div class="task-widget-footer">
+            <select id="project" name="project">
+                <option value="inbox">Входящие</option>
+            </select>
+            <div id="change-buttons">
+                <button id="close-change-task" class="close">Отмена</button>
+                <button type="submit" id="change-task-button">
+                    Редактировать задачу
+                </button>
+            </div>
+        </div>
+    </form>
+</dialog>

@@ -1,0 +1,29 @@
+<dialog id="add-label-modal">
+    <p>Добавить метку</p>
+    <form id="add-label-form">
+        <div id="label-info">
+            <label> Название </label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="off"
+            />
+            <label> Цвет </label>
+            <select id="color" name="color">
+                <option value="#4d9de0">Голубой</option>
+                <option value="#e15554">Красный</option>
+                <option value="#e1bc29">Желтый</option>
+                <option value="#3bb273">Зеленый</option>
+                <option value="#7768ae">Фиолетовый</option>
+            </select>
+        </div>
+
+        <hr />
+        <div id="add-label-buttons">
+            <button id="close-label-modal">Отмена</button>
+            <button type="submit" id="add-label-button">Добавить метку</button>
+        </div>
+    </form>
+</dialog>

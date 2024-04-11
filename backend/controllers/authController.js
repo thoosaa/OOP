@@ -49,6 +49,16 @@ class authController {
             res.status(400).json({message: 'Login error'})
         }
     }
+
+    async logout(req, res) {
+        req.session.destroy(err => {
+            if (err) {
+                console.log(err);
+            }
+        })
+
+        res.status(200).send();
+    }
 }
 
 module.exports = new authController()

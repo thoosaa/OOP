@@ -14,6 +14,10 @@ router.get('/today', isAuthenticated, (req, res) => {
     res.render('./pages/today')
 })
 
+router.get('/completedTasks', isAuthenticated, (req, res) => {
+    res.render('./pages/completedTasks');
+})
+
 router.get('/', (req, res) => {
     res.redirect('/auth/login');
 })

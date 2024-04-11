@@ -25,6 +25,20 @@ class taskController{
         }
     }
 
+    async getToday(req, res) {
+        const username = req.query.username;
+    
+        try {
+            const today = new Date().toISOString().slice(0, 10);
+            const user = await User.findOne({ name: username });
+            const tasks = user.tasks.filter(task => task.done == "false" && task.deadline == today);
+            res.json(tasks);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+        }
+    }
+
     async countAll(req, res) {
         const username = req.query.username;
     
@@ -62,6 +76,33 @@ class taskController{
             }
         }).exec();
 
+        res.status(200).send()
+    }
+
+    async markDone(req, res) {
+        const username = req.query.username;
+        const task = req.body;
+        await User.updateOne({ name: username, "tasks.name": task.name },
+            {
+                $set: {
+                "tasks.$":req.body
+            }
+            })
+        
+        res.status(200).send()
+    }
+
+    async changeTask(req, res) {
+        const { username, taskName } = req.query;
+        const task = req.body;
+
+        await User.updateOne({ name: username, "tasks.name": taskName },
+            {
+                $set: {
+                "tasks.$": task
+            }
+            })
+        
         res.status(200).send()
     }
 }
