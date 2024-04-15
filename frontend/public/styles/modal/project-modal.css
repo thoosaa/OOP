@@ -30,10 +30,10 @@
     font-size: 12px;
 }
 
-#add-project-modal #name,#add-project-modal #color{
+.opt{
     height: 30px;
     background-color: inherit;
-    border: 0.5px solid #6b6b6b;
+    border: 1px solid #6b6b6b;
     border-radius: 5px;
     color: white;
     padding: 5px;

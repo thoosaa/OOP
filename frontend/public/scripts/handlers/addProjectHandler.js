@@ -22,7 +22,6 @@ addProjectBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
     let project = projectMethods.getProjectFromForm(form);
+    projectMethods.addProject(project);
     await projectDisplay.display();
-
-    projectDisplay.addProjectDisplay(project.name, project.color );
 })

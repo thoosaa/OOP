@@ -1,3 +1,4 @@
+import countTask from "../classes/countTask.js";
 import taskDisplay from "../classes/taskDisplay.js";
 import taskMethods from "../classes/taskMethods.js";
 
@@ -16,7 +17,10 @@ taskContainer.addEventListener('click', async (e) => {
     if (target.closest('button')) {
         console.log(target.closest('button'));
         let taskObj = taskMethods.getTaskFromTask(target.closest('button').parentElement.parentElement, true);
-        taskMethods.markDone(taskObj);
+        taskObj['done'] = 'true';
+        await taskMethods.markDone(taskObj);
+
+        await countTask.correctTaskCount();
         return;
     }  
 

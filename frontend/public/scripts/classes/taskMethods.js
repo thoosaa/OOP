@@ -150,7 +150,8 @@ class TaskMethods{
             });
     
             if (response.ok) {
-                await countTask.correctTaskCount();
+                countTask.correctTaskCount();
+                console.log('ok');
                 
             } else {
                 console.error('Ошибка при выполнении запроса');

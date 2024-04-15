@@ -2,6 +2,7 @@ import tokenUsername from "../classes/tokenUsername.js";
 
 class projectDisplay{
     display() {
+        document.getElementById("projects-list").innerHTML = '';
         fetch(`http://localhost:5000/project/get?username=${tokenUsername.getUsername()}`)
             .then((res) => res.json())
             .then((data) => {
