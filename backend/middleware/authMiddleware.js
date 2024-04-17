@@ -7,6 +7,6 @@ module.exports = function isAuthenticated(req, res, next) {
         next()
     }
     else {
-        res.status(403).json({ message: 'Пользователь не найден' });
+        res.render('./pages/userNotFound')
     }
 };
