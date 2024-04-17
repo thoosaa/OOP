@@ -8,7 +8,7 @@ const taskRouter = require('./backend/routers/taskRouter')
 const projectRouter = require('./backend/routers/projectRouter')
 const labelRouter = require('./backend/routers/labelRouter')
 
-const PORT = 5000;
+const PORT = 8000;
 
 const app = express()
 

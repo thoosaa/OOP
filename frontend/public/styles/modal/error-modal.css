@@ -1,0 +1,32 @@
+#error-modal {
+    position: fixed;
+    left:50%;
+    transform: translateX(-50%);
+    background-color: #de4c4a;
+    color: white;
+    width: 400px;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    margin: 15px;
+    padding: none;
+
+    > div{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        width: 100%;
+        
+        > button{
+            border: none;
+            background-color: #de4c4a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    
+}
+

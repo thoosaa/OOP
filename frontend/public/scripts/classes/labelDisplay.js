@@ -28,5 +28,5 @@ class labelDisplay{
         //console.log(hashtag);
         hashtag.style.color = Color;
     }
-    }
+    
 }
