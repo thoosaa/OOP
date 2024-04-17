@@ -69,3 +69,16 @@ button[type="submit"]{
     border: none;
     border-radius: 5px;
 }
+
+.password-field{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > #showPassword{
+        border: none;
+        background-color: inherit;
+        color: white;
+        padding-right: 2px;
+    }
+}

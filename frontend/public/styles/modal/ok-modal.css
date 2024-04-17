@@ -1,8 +1,9 @@
-#error-modal {
+#ok-modal {
     position: fixed;
     left:50%;
-    transform: translateX(-50%);
-    background-color: #de4c4a;
+    top:50%;
+    transform: translate(-50%, -50%);
+    background-color: #6ade4a;
     color: white;
     width: 400px;
     height: 45px;
@@ -19,7 +20,7 @@
         
         > button{
             border: none;
-            background-color: #de4c4a;
+            background-color: #6ade4a;
             color: white;
             display: flex;
             align-items: center;
@@ -27,4 +28,3 @@
         }
     }  
 }
-

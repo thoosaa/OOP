@@ -1,4 +1,5 @@
 const signup = document.getElementById("form");
+console.log(signup);
 
 signup.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -7,7 +8,7 @@ signup.addEventListener("submit", async (event) => {
     const formData = new FormData(signup);
     const username = formData.get("username");
     const password = formData.get("password");
-    ///////////////////////////////////////////////////////////////
+
     try {
         const res = await fetch("/auth/signup", {
         method: "POST",
@@ -21,8 +22,7 @@ signup.addEventListener("submit", async (event) => {
 
         if(res.ok){
             const msg = await res.json();
-            console.log(msg);
-            window.location.href = "/auth/login"; 
+            document.getElementById('ok-modal').showModal();
         }
         else{
             const msg = await res.json()
@@ -40,4 +40,11 @@ signup.addEventListener("submit", async (event) => {
 const closeErr = document.querySelector('#error-modal div button');
 closeErr.addEventListener('click', (e)=>{
     document.getElementById("error-modal").close();
+})
+
+const closeOk = document.querySelector('#ok-modal div button');
+closeOk.addEventListener('click', (e)=>{
+    document.getElementById("ok-modal").close();
+    window.location.href = "/auth/login?"; 
+    
 })

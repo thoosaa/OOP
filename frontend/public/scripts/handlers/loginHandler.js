@@ -41,3 +41,4 @@ const closeErr = document.querySelector('#error-modal div button');
 closeErr.addEventListener('click', (e)=>{
     document.getElementById("error-modal").close();
 })
+

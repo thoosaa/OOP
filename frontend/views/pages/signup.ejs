@@ -17,6 +17,11 @@
             type="text/css"
             href="styles/modal/error-modal.css"
         />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="styles/modal/ok-modal.css"
+        />
         <title>Sign Up - Todoist</title>
         <link
             rel="icon"
@@ -26,10 +31,11 @@
     </head>
     <body>
         <%- include('../partials/show-error-modal.ejs') %>
+        <%- include('../partials/show-ok-modal.ejs') %>
         <main>
             <h2>Зарегистрироваться</h2>
             <div class="container">
-                <form action="/auth/signup" method="post" id="form">
+                <form id="form">
                     <div class="info-div">
                         <label for="username">Username:</label>
                         <input
@@ -42,13 +48,24 @@
                     </div>
                     <div class="info-div">
                         <label for="username">Password:</label>
+                        <div class="password-field">
                         <input
                             type="password"
                             id="password"
                             name="password"
+                            minlength="4"
+                            maxlength="10"
                             autocomplete="off"
                             required
                         />
+                        <button id="showPassword">
+                            <span>
+                                <span class="material-symbols-outlined">
+                                    visibility_off
+                                    </span>
+                            </span>
+                        </button>
+                        </div>
                     </div>
                     <button type="submit">Sign Up</button>
                 </form>
@@ -59,5 +76,7 @@
             </div>
         </main>
     </body>
-    <srcipt type="module" src="./scripts/handlers/signupHandler.js"></srcipt>
+    <script type="module" src="./scripts/handlers/signupHandler.js"></script>
+    <script type="module" src="./scripts/handlers/showPasswordHandler.js">
+    </script>
 </html>
