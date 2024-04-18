@@ -12,6 +12,19 @@ class dailyGoalController{
             res.status(500).json({ error: 'Внутренняя ошибка сервера' });
         }
     }
+
+    async changeDailyGoal(req, res) {
+        const username = req.query.username;
+        await User.updateOne(
+            { name: username },
+        {
+            $set: {
+                dailyGoal: req.body.goal
+            }
+        });
+
+        res.status(200).send();
+    }
 }
 
 module.exports = new dailyGoalController();

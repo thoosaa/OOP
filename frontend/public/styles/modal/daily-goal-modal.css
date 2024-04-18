@@ -39,6 +39,46 @@
     font-weight: bolder;
 }
 
+#change-daily-goal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    >button{
+        width: 100%;
+        color: white;
+        border-radius: 5px;
+        background-color: #de4c4a;
+        padding: 5px;
+        margin-top: 20px;
+    }
+}
+
+#goal-changer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #6b6b6b;
+    border-radius: 5px;
+    margin-top:5px;
+    padding: 2px;
+    color: white;
+
+    >label{
+        font-size: 14px;
+    }
+
+    > input{
+        width: 20%;
+        background-color: #1e1e1e;
+        color: #de4c4a;
+        font-weight: bold;
+        font-size: 16px;
+        border:none;
+        padding: 5px;
+    }
+}
 
 .progress-ring {
     display: block;

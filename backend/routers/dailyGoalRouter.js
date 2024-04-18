@@ -6,4 +6,6 @@ const controller = require('../controllers/dailyGoalController')
 
 router.get('/get', controller.getGailyGoal);
 
+router.post('/change', controller.changeDailyGoal);
+
 module.exports = router

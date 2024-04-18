@@ -1,20 +1,30 @@
 <dialog id="daily-goal-modal" class="modal">
     <div id="daily-goal-header">
-    <h2>Цель на день</h2>
-     <button id="close-daily-modal"><span class="material-symbols-outlined">
-        close
-    </span></button>
+        <h2>Цель на день</h2>
+        <button id="close-daily-modal"><span class="material-symbols-outlined">
+                close
+            </span></button>
     </div>
     <div id="daily-goal-container">
         <svg class="progress-ring" width="120" height="120">
-            <circle class="progress-ring-circle" stroke="#de4c4a" stroke-width="8" fill="transparent" r="50" cx="60" cy="60" />
-            <text class="progress-ring-text" x="50%" y="75%" alignment-baseline="middle" text-anchor="middle" fill="white"
-                font-size="36">
-                <tspan class="material-symbols-outlined" style="font-size: 60px !important; font-weight: 800 !important;">trophy</tspan>
+            <circle class="progress-ring-circle" stroke="#de4c4a" stroke-width="8" fill="transparent" r="50" cx="60"
+                cy="60" />
+            <text class="progress-ring-text" x="50%" y="75%" alignment-baseline="middle" text-anchor="middle"
+                fill="white" font-size="36">
+                <tspan class="material-symbols-outlined"
+                    style="font-size: 60px !important; font-weight: 800 !important;">trophy</tspan>
             </text>
         </svg>
-    <div>
-        <span id="tasks-done-number">0</span>/<span id="daily-goal-number">876</span> задач сделано
+        <div>
+            <span id="tasks-done-number">0</span>/<span id="daily-goal-number">876</span> задач сделано
+        </div>
     </div>
+
+    <div id="change-daily-goal">
+        <button type="submit">Изменить цель на день</button>
+        <div id="goal-changer">
+            <label for="daily-goal">Новая цель на день:</label>
+            <input type="number" name="daily-goal" min="0" max="100" value="5" onkeydown="return false">
+        </div>
     </div>
 </dialog>
