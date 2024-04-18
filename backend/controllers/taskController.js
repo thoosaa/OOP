@@ -6,7 +6,7 @@ class taskController{
         
         try {
             const user = await User.findOne({ name: username });
-            const tasks = user.tasks.filter(task => task.done == "false");
+            const tasks = user.tasks.filter(task => task.done[0] == "false");
             res.json(tasks);
         } catch (error) {
             res.status(500).json({ error: 'Внутренняя ошибка сервера' });
@@ -18,7 +18,7 @@ class taskController{
     
         try {
             const user = await User.findOne({ name: username });
-            const tasks = user.tasks.filter(task => task.done == "true");
+            const tasks = user.tasks.filter(task => task.done[0] == "true");
             res.json(tasks);
         } catch (error) {
             res.status(500).json({ error: 'Внутренняя ошибка сервера' });
@@ -31,7 +31,21 @@ class taskController{
         try {
             const today = new Date().toISOString().slice(0, 10);
             const user = await User.findOne({ name: username });
-            const tasks = user.tasks.filter(task => task.done == "false" && task.deadline == today);
+            const tasks = user.tasks.filter(task => task.done[0] == "false" && task.deadline == today);
+            res.json(tasks);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+        }
+    }
+
+    async getDoneToday(req, res) {
+        const username = req.query.username;
+
+        try {
+            const today = new Date().toISOString().slice(0, 10);
+            const user = await User.findOne({ name: username });
+            const tasks = user.tasks.filter(task => task.done[0] == "true" && task.done[1] == today).length;
             res.json(tasks);
         } catch (error) {
             console.log(error);
@@ -44,7 +58,7 @@ class taskController{
 
         try {
             const user = await User.findOne({ name: username });
-            const tasks = user.tasks.filter(task => task.done == "false" && task.project == projectName);
+            const tasks = user.tasks.filter(task => task.done[0] == "false" && task.project == projectName);
             res.json(tasks);
         }
         catch {
@@ -58,7 +72,7 @@ class taskController{
     
         try {
             const user = await User.findOne({ name: username });
-            const len = user.tasks.filter(task => task.done == "false").length;
+            const len = user.tasks.filter(task => task.done[0] == "false").length;
             console.log(len);
             res.json(len);
         } catch (error) {
@@ -72,7 +86,7 @@ class taskController{
         try {
             const today = new Date().toISOString().slice(0, 10);
             const user = await User.findOne({ name: username });
-            const len = user.tasks.filter(task => task.done == "false" && task.deadline == today).length;
+            const len = user.tasks.filter(task => task.done[0] == "false" && task.deadline == today).length;
             console.log(len);
             res.json(len);
         } catch (error) {

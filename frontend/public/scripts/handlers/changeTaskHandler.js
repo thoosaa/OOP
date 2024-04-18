@@ -17,7 +17,7 @@ taskContainer.addEventListener('click', async (e) => {
     if (target.closest('button')) {
         console.log(target.closest('button'));
         let taskObj = taskMethods.getTaskFromTask(target.closest('button').parentElement.parentElement, true);
-        taskObj['done'] = 'true';
+        taskObj['done'] = ['true', new Date().toISOString().slice(0, 10)];
         await taskMethods.markDone(taskObj);
 
         await countTask.correctTaskCount();

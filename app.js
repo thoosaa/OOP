@@ -7,8 +7,9 @@ const pagesRouter = require('./backend/routers/pagesRouter')
 const taskRouter = require('./backend/routers/taskRouter')
 const projectRouter = require('./backend/routers/projectRouter')
 const labelRouter = require('./backend/routers/labelRouter')
+const dailyGoalRouter = require('./backend/routers/dailyGoalRouter')
 
-const PORT = 8000;
+const PORT = 5000;
 
 const app = express()
 
@@ -28,6 +29,7 @@ app.use('/', pagesRouter)
 app.use('/task', taskRouter)
 app.use('/project', projectRouter)
 app.use('/label', labelRouter)
+app.use('/dailyGoal', dailyGoalRouter)
 
 const start = async () => {
     try {

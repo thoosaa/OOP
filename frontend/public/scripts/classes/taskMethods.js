@@ -11,7 +11,7 @@ class TaskMethods{
             taskObj[key] = value;
         });
 
-        taskObj['done'] = 'false';
+        taskObj['done'] = ['false'];
 
         const inputs = document.querySelectorAll('input');
         inputs.forEach(input => {
@@ -66,10 +66,10 @@ class TaskMethods{
             priority: Priority,
             project: project,
             label: label,
-            done: "true"
+            done: ["true", new Date().toISOString().slice(0, 10)]
         };
     
-        let oldObj = this.#correctObj({ ...taskObj, done: "false" });
+        let oldObj = this.#correctObj({ ...taskObj, done: ["false"] });
         console.log(oldObj);
 
         return oldObj;

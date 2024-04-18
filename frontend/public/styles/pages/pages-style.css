@@ -50,7 +50,7 @@ main{
     visibility: hidden;
 }
 
-h2{
+#page-name {
     color: white;
     padding-left: 25px;
 }

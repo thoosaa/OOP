@@ -20,6 +20,12 @@ class TaskCount{
         const countToday = await this.#getToday();
         document.getElementById('today-task-number').innerText = countToday;
     }
+
+    async getDoneToday() {
+        const res = await fetch(`http://localhost:5000/task/getDoneToday?username=${tokenUsername.getUsername()}`);
+        const data = await res.json();
+        return data;
+    }
 }
 
 export default new TaskCount();
