@@ -19,6 +19,12 @@
             type="text/css"
             href="styles/modal/task-modal.css"
         />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="styles/modal/daily-goal-modal.css"
+        />
         <!--<link
             rel="stylesheet"
             type="text/css"
@@ -41,7 +47,8 @@
         />
     </head>
     <body>
-        <%- include('../partials/add-task-modal.ejs') %> <%-
+        <%- include('../partials/daily-goal-modal.ejs') %> <%-
+        include('../partials/add-task-modal.ejs') %> <%-
         include('../partials/navbar.ejs') %>
 
         <main>
@@ -56,8 +63,4 @@
         </main>
     </body>
     <%- include('../partials/scripts.ejs') %>
-    <script
-        type="module"
-        src="./scripts/handlers/changeTaskHandler.js"
-    ></script>
 </html>

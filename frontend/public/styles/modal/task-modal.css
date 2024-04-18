@@ -1,13 +1,14 @@
 .modal {
-    position: fixed; 
-    top: 45%; 
-    left: 40%; 
-    transform: translate(-45%, -40%); 
-    border-radius: 8px; 
+    position: fixed;
+    top: 45%;
+    left: 40%;
+    transform: translate(-45%, -40%);
+    border-radius: 8px;
     z-index: 1000;
 }
 
-#add-task-modal, #change-task-modal{
+#add-task-modal,
+#change-task-modal {
     margin-left: 246px;
     background-color: #1e1e1e;
     width: 548px;
@@ -16,7 +17,11 @@
     border: 1px solid #6b6b6b;
 }
 
-#priority, #deadline, #notification, #project,#label{
+#priority,
+#deadline,
+#notification,
+#project,
+#label {
     border: 1px solid #6b6b6b;
     background-color: #1e1e1e;
     padding: 5px;
@@ -25,16 +30,18 @@
     font-size: 12px;
 }
 
-#name{
+#name {
     font-size: 16px;
     font-weight: bolder;
 }
 
-#description{
+#description {
     font-size: 12px;
 }
 
-#add-task-modal #name,#change-task-modal #name,  #description{
+#add-task-modal #name,
+#change-task-modal #name,
+#description {
     border: none;
     padding: 2px;
     background-color: inherit;
@@ -45,47 +52,49 @@ input:focus {
     outline: none;
 }
 
-.task-info{
+.task-info {
     display: flex;
     flex-direction: column;
 }
 
-.task-params{
+.task-params {
     margin: 10px 0;
     display: flex;
     gap: 5px;
 }
 
-#add-task-modal hr, #change-task-modal hr{
+#add-task-modal hr,
+#change-task-modal hr {
     margin: 15px 0 10px 0;
     border-top: 0px solid #6b6b6b;
 }
 
-#change-task-modal h2{
+#change-task-modal h2 {
     margin-left: -23px;
     margin-bottom: 10px;
     font-size: 20px;
 }
 
-.task-widget-footer{
+.task-widget-footer {
     display: flex;
     justify-content: space-between;
 }
 
-.add-buttons{
+.add-buttons {
     display: flex;
     justify-content: right;
     gap: 10px;
 }
 
-#add-task-button, #change-task-button{
+#add-task-button,
+#change-task-button {
     border: 1px solid #de4c4a;
     background-color: #de4c4a;
     padding: 5px;
     border-radius: 5px;
 }
 
-.close{
+.close {
     border: 1px solid #363636;
     background-color: #363636;
     color: white;

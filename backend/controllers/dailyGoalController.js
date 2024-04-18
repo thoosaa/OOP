@@ -1,15 +1,14 @@
-const User = require('../models/user')
+const User = require("../models/user");
 
-class dailyGoalController{
+class dailyGoalController {
     async getGailyGoal(req, res) {
         const username = req.query.username;
 
         try {
             const user = await User.findOne({ name: username });
             res.json(user.dailyGoal);
-        }
-        catch (error) {
-            res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+        } catch (error) {
+            res.status(500).json({ error: "Внутренняя ошибка сервера" });
         }
     }
 
@@ -17,11 +16,12 @@ class dailyGoalController{
         const username = req.query.username;
         await User.updateOne(
             { name: username },
-        {
-            $set: {
-                dailyGoal: req.body.goal
+            {
+                $set: {
+                    dailyGoal: req.body.goal,
+                },
             }
-        });
+        );
 
         res.status(200).send();
     }

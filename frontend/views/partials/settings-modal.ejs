@@ -1,0 +1,38 @@
+<dialog id="settings-modal" class="modal">
+    <div id="settings-header">
+        <h2>Настройки</h2>
+        <button id="close-settings-modal">
+            <span class="material-symbols-outlined"> close </span>
+        </button>
+    </div>
+
+    <div id="settings-footer">
+        <form id="user-settings-input">
+            <label for="username"> Имя пользователя: </label>
+            <input
+                type="text"
+                name="username"
+                id="newUsername"
+                pattern="[A-Za-z0-9]+"
+                title="Введите только латинские символы и цифры"
+            />
+            <label for="pfp"> URL фотографии: </label>
+            <input
+                type="text"
+                name="pfp"
+                id="newPfpURL"
+                pattern="https?://.+\.(jpg|jpeg|png|gif|bmp)"
+                title="Введите корректную ссылку на изображение (jpg, jpeg, png, gif, bmp)"
+            />
+        </form>
+
+        <img
+            id="settings-user-img"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
+        />
+    </div>
+
+    <button id="save-user-changes" type="submit" form="user-settings-input">
+        Сохранить изменения
+    </button>
+</dialog>

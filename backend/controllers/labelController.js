@@ -1,25 +1,27 @@
-const User = require('../models/user');
+const User = require("../models/user");
 
-class labelController{
+class labelController {
     async getLabels(req, res) {
         const username = req.query.username;
 
         try {
             const check = await User.findOne({ name: username });
             res.json(check.labels);
-        }
-        catch (error) {
-            res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+        } catch (error) {
+            res.status(500).json({ error: "Внутренняя ошибка сервера" });
         }
     }
 
     addLabel(req, res) {
         const username = req.query.username;
-        User.updateOne({ name: username }, {
-            $push: {
-                labels: req.body
+        User.updateOne(
+            { name: username },
+            {
+                $push: {
+                    labels: req.body,
+                },
             }
-        }).exec()
+        ).exec();
 
         res.status(200).send();
     }

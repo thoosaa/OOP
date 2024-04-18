@@ -2,13 +2,13 @@ body {
     height: 100%;
     width: 100%;
     position: fixed;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     background-color: #1e1e1e;
     display: flex;
     justify-content: center;
     align-items: center;
-    color:white;
+    color: white;
 }
 
 * {
@@ -17,7 +17,7 @@ body {
     box-sizing: border-box;
 }
 
-main{
+main {
     padding: 25px;
     width: 350px;
     height: 100px;
@@ -30,16 +30,17 @@ main{
     gap: 10px;
 }
 
-button{
+button {
     width: 100%;
     font-size: 14px;
     padding: 5px;
     border: none;
-    border-radius:5px;
-    font-weight: bolder;  
+    border-radius: 5px;
+    font-weight: bolder;
     background-color: #de4c4a;
-    
-    > a, a:active{
+
+    > a,
+    a:active {
         color: white;
         text-decoration: none;
     }

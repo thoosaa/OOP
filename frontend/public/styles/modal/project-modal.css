@@ -1,36 +1,39 @@
-#add-project-modal, #add-label-modal{
-    position: fixed; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+#add-project-modal,
+#add-label-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1000;
     background-color: #1e1e1e;
     width: 450px;
     padding: 15px;
     border-radius: 5px;
-    border: 1px solid #6b6b6b; 
+    border: 1px solid #6b6b6b;
 }
 
 #add-project-modal p,
-#add-label-modal p{
+#add-label-modal p {
     padding: 5px;
     color: white;
     font-weight: bolder;
 }
 
-#project-info, #label-info{
+#project-info,
+#label-info {
     display: flex;
     flex-direction: column;
     margin: 5px;
-    gap:2px;
-    color:white;
+    gap: 2px;
+    color: white;
 }
 
-#add-project-form label, #add-label-form label{
+#add-project-form label,
+#add-label-form label {
     font-size: 12px;
 }
 
-.opt{
+.opt {
     height: 30px;
     background-color: inherit;
     border: 1px solid #6b6b6b;
@@ -39,30 +42,36 @@
     padding: 5px;
 }
 
-#add-project-buttons, #add-label-buttons{
+#add-project-buttons,
+#add-label-buttons {
     display: flex;
     justify-content: right;
     gap: 10px;
 }
 
-#add-project-button, #add-label-button{
+#add-project-button,
+#add-label-button {
     border: 1px solid #de4c4a;
     background-color: #de4c4a;
 }
 
-#close-project-modal, #close-label-modal{
+#close-project-modal,
+#close-label-modal {
     border: 1px solid #363636;
     background-color: #363636;
 }
 
-#add-project-button, #close-project-modal,
-#add-label-button, #close-label-modal{
+#add-project-button,
+#close-project-modal,
+#add-label-button,
+#close-label-modal {
     color: white;
     padding: 5px;
     border-radius: 5px;
 }
 
-#add-project-modal hr, #add-label-modal hr{
+#add-project-modal hr,
+#add-label-modal hr {
     margin: 15px 0 10px 0;
     border-top: 0.5px solid #6b6b6b;
 }

@@ -1,12 +1,12 @@
 import projectMethods from "./projectMethods.js";
 
-class FormOptions{
+class FormOptions {
     async setProjectOptions(field) {
         field.innerHTML = "";
-  
+
         let options = await projectMethods.getProjects();
-        options.unshift({ 'Входящие': 'inbox' });
-        
+        options.unshift({ Входящие: "inbox" });
+
         console.log(options);
 
         for (const obj of options) {

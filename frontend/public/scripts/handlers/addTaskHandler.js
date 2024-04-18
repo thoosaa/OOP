@@ -1,35 +1,35 @@
 import formOptions from "../classes/formOptions.js";
 import taskMethods from "../classes/taskMethods.js";
 
-const addTaskNavBtn = document.getElementById('add-task');
-const addTaskBtn = document.getElementById('add-task-button')
+const addTaskNavBtn = document.getElementById("add-task");
+const addTaskBtn = document.getElementById("add-task-button");
 
-const closeModal = document.getElementById('close-add-task');
+const closeModal = document.getElementById("close-add-task");
 
-const addTaskModal = document.getElementById('add-task-modal');
+const addTaskModal = document.getElementById("add-task-modal");
 
 const form = document.getElementById("add-task-form");
 
-addTaskNavBtn.addEventListener('click', (e) => {
+addTaskNavBtn.addEventListener("click", (e) => {
     e.preventDefault();
     form.reset();
 
-    formOptions.setProjectOptions(document.getElementById('project'));
+    formOptions.setProjectOptions(document.getElementById("project"));
 
     addTaskModal.showModal();
-})
+});
 
-closeModal.addEventListener('click', (e) => {
+closeModal.addEventListener("click", (e) => {
     e.preventDefault();
     form.reset();
     addTaskModal.close();
-})
+});
 
-addTaskBtn.addEventListener('click', (e) => {
+addTaskBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
     let taskObj = taskMethods.getTaskFromForm(form);
     taskMethods.addTask(taskObj);
 
     form.reset();
-})
+});

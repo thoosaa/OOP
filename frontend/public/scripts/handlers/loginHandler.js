@@ -9,36 +9,32 @@ login.addEventListener("submit", async (event) => {
 
     try {
         const res = await fetch("/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
             },
-        body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ username, password }),
         });
 
-        if(res.ok){
+        if (res.ok) {
             const data = await res.json();
             const { token } = data;
 
             console.log(token);
             sessionStorage.setItem("token", token);
-            window.location.href = "/inbox"; 
-        }
-        else{
-            const msg = await res.json()
-            document.getElementById('error-text').innerText = msg.message;
+            window.location.href = "/inbox";
+        } else {
+            const msg = await res.json();
+            document.getElementById("error-text").innerText = msg.message;
             document.getElementById("error-modal").showModal();
             console.log(msg);
         }
-                
     } catch (e) {
         window.alert(e);
     }
 });
 
-
-const closeErr = document.querySelector('#error-modal div button');
-closeErr.addEventListener('click', (e)=>{
+const closeErr = document.querySelector("#error-modal div button");
+closeErr.addEventListener("click", (e) => {
     document.getElementById("error-modal").close();
-})
-
+});

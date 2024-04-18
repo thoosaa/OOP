@@ -1,5 +1,5 @@
-#daily-goal-modal{
-    border:none;
+#daily-goal-modal {
+    border: none;
     border-radius: 5px;
     border-radius: 5px;
     border: 1px solid #6b6b6b;
@@ -9,20 +9,20 @@
     width: 300px;
     padding: 15px;
 
-    >#daily-goal-header{
+    > #daily-goal-header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         color: white;
 
-        >button span{
+        > button span {
             color: white !important;
         }
     }
 }
 
-#daily-goal-container{
+#daily-goal-container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -31,20 +31,20 @@
     margin-top: 15px;
 
     color: white;
-
 }
 
-#tasks-done-number, #daily-goal-number{
+#tasks-done-number,
+#daily-goal-number {
     font-size: 18px;
     font-weight: bolder;
 }
 
-#change-daily-goal{
+#change-daily-goal {
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    >button{
+    > button {
         width: 100%;
         color: white;
         border-radius: 5px;
@@ -54,28 +54,28 @@
     }
 }
 
-#goal-changer{
+#goal-changer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border: 1px solid #6b6b6b;
     border-radius: 5px;
-    margin-top:5px;
+    margin-top: 5px;
     padding: 2px;
     color: white;
 
-    >label{
+    > label {
         font-size: 14px;
     }
 
-    > input{
+    > input {
         width: 20%;
         background-color: #1e1e1e;
         color: #de4c4a;
         font-weight: bold;
         font-size: 16px;
-        border:none;
+        border: none;
         padding: 5px;
     }
 }

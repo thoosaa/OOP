@@ -11,10 +11,10 @@ nav {
     height: 24px;
     width: 24px;
     border-radius: 50%;
-    margin:5px 10px 5px 5px;
+    margin: 5px 10px 5px 5px;
 }
 
-#user-icon-container{
+#user-icon-container {
     display: flex;
     justify-content: space-between;
 }
@@ -25,28 +25,31 @@ nav {
     border-radius: 5%;
 }
 
-#user{
+#user {
     display: flex;
     align-items: center;
     padding-right: 5px;
     font-size: 14px;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
-#user-menu{
+#user-menu {
     color: white;
     border: 0.5px solid #6e6e6e;
     border-radius: 5px;
     margin: 0px 15px 5px 10px;
-    > hr{
+    > hr {
         padding: none;
         margin: none;
         border: 0.5px solid #6e6e6e;
     }
 }
 
-#daily-goal, #user-settings, #completed-list, #logout{
-    color:white;
+#daily-goal,
+#user-settings,
+#completed-list,
+#logout {
+    color: white;
     display: flex;
     align-items: center;
     margin-left: 10px;
@@ -54,43 +57,50 @@ nav {
     padding: 4px 4px 4px 0px;
 }
 
-#open-close{
+#daily-goal:hover,
+#user-settings:hover,
+#completed-list:hover,
+#logout:hover {
+    cursor: pointer;
+}
+
+#open-close {
     padding: 5px;
 }
 
 #open-close:hover,
 #open-close:focus,
-#user:hover, 
+#user:hover,
 #user:focus,
 #add-task:focus,
 #add-task:hover,
-.section:hover{
+.section:hover {
     background-color: #363636;
     border-radius: 5px;
 }
 
-#pages-nav{
+#pages-nav {
     display: flex;
     flex-direction: column;
-    margin-top:5px;
-    gap:1px;
+    margin-top: 5px;
+    gap: 1px;
 }
 
-.num-container{
-    color:#6e6e6e;
+.num-container {
+    color: #6e6e6e;
     display: flex;
-    align-items:center;
-    padding:5px;
+    align-items: center;
+    padding: 5px;
     font-size: 12px;
 }
 
-.section a{
+.section a {
     display: flex;
-    align-items:center;
+    align-items: center;
 }
 
-#add-task{
-    color:#de4c4a;
+#add-task {
+    color: #de4c4a;
     display: flex;
     align-items: center;
     margin-left: 10px;
@@ -99,12 +109,13 @@ nav {
     font-size: inherit;
 }
 
-#add-task span, .section span:nth-child(1){
+#add-task span,
+.section span:nth-child(1) {
     padding: 2px;
 }
 
-.section{
-    color:white;
+.section {
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -126,7 +137,7 @@ nav {
 
 #dropdown:hover .dropdown-content {
     display: block;
-    display:flex;
+    display: flex;
     flex-direction: column;
     background-color: #282828;
 }

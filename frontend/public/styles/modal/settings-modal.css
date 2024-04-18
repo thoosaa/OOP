@@ -1,0 +1,71 @@
+#settings-modal {
+    border: none;
+    border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #6b6b6b;
+    background-color: #1e1e1e;
+    margin-left: 246px;
+    background-color: #1e1e1e;
+    width: 350px;
+    padding: 15px;
+
+    > #save-user-changes {
+        background-color: #de4c4a;
+        color: white;
+        font-weight: bolder;
+        width: 95%;
+        margin: 10px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    > #settings-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+
+        > button span {
+            color: white !important;
+        }
+
+        > h2 {
+            padding: 10px;
+        }
+    }
+
+    > #settings-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 10px;
+
+        > #user-settings-input {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            > input {
+                color: white;
+                font-size: 14px;
+                border: 0.5px solid #6b6b6b;
+                border-radius: 5px;
+                background-color: inherit;
+                padding: 5px;
+            }
+
+            > label {
+                color: white;
+                font-size: 12px;
+            }
+        }
+
+        > img {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+        }
+    }
+}
