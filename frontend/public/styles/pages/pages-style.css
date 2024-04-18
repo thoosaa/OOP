@@ -11,6 +11,31 @@ body {
     box-sizing: border-box;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 258px);
+    height: 770px;
+    gap: 15px;
+    overflow-x: auto;
+    margin: 15px 25px 0 25px;
+}
+
+/*.column {
+    border: 0.5px solid #6b6b6b;
+    border-radius: 5px;
+}*/
+
+.date {
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+    /*padding: 10px;*/
+}
+
+#task-display {
+    margin: 15px 25px 0 25px;
+}
+
 button {
     background-color: transparent;
     border: transparent;

@@ -70,9 +70,9 @@ input:focus {
 }
 
 #change-task-modal h2 {
-    margin-left: -23px;
     margin-bottom: 10px;
     font-size: 20px;
+    color: white;
 }
 
 .task-widget-footer {

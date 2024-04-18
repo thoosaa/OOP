@@ -1,9 +1,10 @@
 import tokenUsername from "../classes/tokenUsername.js";
+import inboxDisplay from "./inboxDisplay.js";
 
 export class TaskDisplay {
     #container = document.getElementById("task-display");
 
-    correctPageDisplay(pageName) {
+    async correctPageDisplay(pageName) {
         const urlParams = new URLSearchParams(window.location.search);
         const currProjectName = urlParams.get("currProjectName");
         if (currProjectName) {
@@ -16,18 +17,18 @@ export class TaskDisplay {
             pageName = "label";
         }
 
-        //console.log(document.getElementById('page-name').innerHTML);
-        document.getElementById("task-display").innerHTML = "";
-        //console.log(pageName);
         switch (pageName) {
             case "Входящие":
-                this.#displayAll();
+                document.getElementById("task-display").innerHTML = "";
+                document.getElementById("date-display").innerHTML = "";
+                await this.#displayAll();
                 break;
             case "Сегодня":
-                this.#displayToday();
+                document.getElementById("task-display").innerHTML = "";
+                await this.#displayToday();
                 break;
             case "Выполненные задачи":
-                this.#displayDone();
+                await this.#displayDone();
                 break;
             case "project":
                 this.#displayProject(currProjectName);
@@ -38,54 +39,66 @@ export class TaskDisplay {
         }
     }
 
-    #displayAll() {
-        fetch(
+    async #displayAll() {
+        const res = await fetch(
             `http://localhost:5000/task/get?username=${tokenUsername.getUsername()}`
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.length == 0) {
-                    this.#emptyScreen();
-                } else {
-                    for (let i = 0; i < data.length; i++) {
-                        this.#addTaskToPage(data[i]);
-                        console.log(data[i]);
-                    }
+        );
+        const tasks = await res.json();
+        if (tasks.length == 0) {
+            this.#emptyScreen();
+            return;
+        }
+        const columns = inboxDisplay.createDates();
+        tasks.forEach((task) => {
+            columns.forEach((column) => {
+                const columnDate = new Date(
+                    column.querySelector(".date").innerText
+                );
+
+                columnDate.setDate(columnDate.getDate() + 1);
+                //console.log(columnDate);
+
+                if (task.deadline === columnDate.toISOString().slice(0, 10)) {
+                    const taskElement = this.#addTaskToPage(task);
+                    column.appendChild(taskElement);
+                    this.#setCorrectPriority(task.priority);
                 }
             });
+        });
     }
 
-    #displayDone() {
-        fetch(
-            `http://localhost:5000/task/getDone?username=${tokenUsername.getUsername()}`
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.length == 0) {
-                    this.#emptyScreen();
-                } else {
-                    for (let i = 0; i < data.length; i++) {
-                        this.#addTaskToPage(data[i]);
-                        console.log(data[i]);
-                    }
-                }
-            });
-    }
-
-    #displayToday() {
-        fetch(
+    async #displayToday() {
+        const res = await fetch(
             `http://localhost:5000/task/getToday?username=${tokenUsername.getUsername()}`
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.length == 0) {
-                    this.#emptyScreen();
-                } else {
-                    for (let i = 0; i < data.length; i++) {
-                        this.#addTaskToPage(data[i]);
-                    }
-                }
-            });
+        );
+        const tasks = await res.json();
+        if (tasks.length == 0) {
+            this.#emptyScreen();
+        }
+
+        tasks.forEach((task) => {
+            console.log(task);
+            const taskElement = this.#addTaskToPage(task);
+            console.log(taskElement);
+            this.#container.appendChild(taskElement);
+            this.#setCorrectPriority(task.priority);
+        });
+    }
+
+    async #displayDone() {
+        const res = await fetch(
+            `http://localhost:5000/task/getDone?username=${tokenUsername.getUsername()}`
+        );
+        const tasks = await res.json();
+        console.log(tasks);
+        if (tasks.length == 0) {
+            this.#emptyScreen();
+        }
+        tasks.forEach((task) => {
+            const taskElement = this.#addTaskToPage(task);
+            this.#container.appendChild(taskElement);
+            this.#setCorrectPriority(task.priority);
+        });
     }
 
     #displayProject(projectName) {
@@ -215,8 +228,10 @@ export class TaskDisplay {
             taskObj.project,
             taskObj.label
         );
-        this.#container.appendChild(task);
-        this.#setCorrectPriority(taskObj.priority);
+        //this.#container.appendChild(task);
+        //this.#setCorrectPriority(taskObj.priority);
+
+        return task;
     }
 
     #emptyScreen() {

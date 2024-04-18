@@ -8,7 +8,7 @@ window.addEventListener("load", async (e) => {
     e.preventDefault();
 
     document.getElementById("username").innerText = tokenUsername.getUsername();
-    taskDisplay.correctPageDisplay(
+    await taskDisplay.correctPageDisplay(
         document.getElementById("page-name").innerHTML
     );
     projectDisplay.display();

@@ -7,10 +7,11 @@ const changeTaskBtn = document.getElementById("change-task-button");
 const closeChangeModal = document.getElementById("close-change-task");
 const form = document.getElementById("change-task-form");
 const taskContainer = document.getElementById("task-display");
+const gridColumnContainer = document.getElementById("date-display");
 
 let oldTaskName;
 
-taskContainer.addEventListener("click", async (e) => {
+async function handleClick(e) {
     e.preventDefault();
     const target = e.target;
 
@@ -43,7 +44,10 @@ taskContainer.addEventListener("click", async (e) => {
 
         changeTaskModal.showModal();
     }
-});
+}
+
+taskContainer.addEventListener("click", handleClick);
+gridColumnContainer.addEventListener("click", handleClick);
 
 closeChangeModal.addEventListener("click", (e) => {
     e.preventDefault();
