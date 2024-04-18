@@ -34,8 +34,6 @@ nav {
 }
 
 #user-menu{
-    display:flex;
-    flex-direction: column;
     color: white;
     border: 0.5px solid #6e6e6e;
     border-radius: 5px;
@@ -113,4 +111,22 @@ nav {
     margin-left: 10px;
     width: 222px;
     padding: 2px 2px 2px 5px;
+}
+
+#dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+#dropdown:hover .dropdown-content {
+    display: block;
+    display:flex;
+    flex-direction: column;
+    background-color: #282828;
 }
