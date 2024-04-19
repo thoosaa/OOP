@@ -10,29 +10,16 @@ class TaskMethods {
         formData.forEach((value, key) => {
             taskObj[key] = value;
         });
+        console.log(taskObj["description"], taskObj["notification"]);
 
         taskObj["done"] = ["false"];
-
-        const inputs = document.querySelectorAll("input");
-        inputs.forEach((input) => {
-            if (!input.value.trim()) {
-                switch (input.id) {
-                    case "description":
-                        taskObj["description"] = "";
-                        break;
-                    case "notification":
-                        taskObj["notification"] = "";
-                        break;
-                }
-            }
-        });
 
         if (document.getElementById("label").value.trim() == "") {
             taskObj["label"] = "nolabel";
         }
-
-        console.log(document.getElementById("deadline").value);
-
+        if (document.getElementById("notification").value.trim() == "") {
+            taskObj["notification"] = "";
+        }
         taskObj = this.#correctObj(taskObj);
         console.log(taskObj);
 

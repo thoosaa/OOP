@@ -50,6 +50,7 @@ export class TaskDisplay {
         }
         const columns = inboxDisplay.createDates();
         tasks.forEach((task) => {
+            console.log(task.priority);
             columns.forEach((column) => {
                 const columnDate = new Date(
                     column.querySelector(".date").innerText
@@ -61,7 +62,10 @@ export class TaskDisplay {
                 if (task.deadline === columnDate.toISOString().slice(0, 10)) {
                     const taskElement = this.#addTaskToPage(task);
                     column.appendChild(taskElement);
-                    this.#setCorrectPriority(task.priority);
+                    this.#setCorrectPriority(
+                        task.priority,
+                        taskElement.querySelector(".task-button")
+                    );
                 }
             });
         });
@@ -97,7 +101,10 @@ export class TaskDisplay {
         tasks.forEach((task) => {
             const taskElement = this.#addTaskToPage(task);
             this.#container.appendChild(taskElement);
-            this.#setCorrectPriority(task.priority);
+            this.#setCorrectPriority(
+                task.priority,
+                taskElement.querySelector(".task-button")
+            );
         });
     }
 
@@ -139,10 +146,7 @@ export class TaskDisplay {
             });
     }
 
-    #setCorrectPriority(Priority) {
-        const buttons = document.getElementsByClassName("task-button");
-        const button = buttons[buttons.length - 1];
-
+    #setCorrectPriority(Priority, button) {
         let bg_color, color;
 
         switch (Priority) {

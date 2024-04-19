@@ -1,4 +1,5 @@
 import countTask from "../classes/countTask.js";
+import formOptions from "../classes/formOptions.js";
 import taskDisplay from "../classes/taskDisplay.js";
 import taskMethods from "../classes/taskMethods.js";
 
@@ -41,6 +42,7 @@ async function handleClick(e) {
         taskMethods.fillFormFromObj(form, taskObj);
 
         oldTaskName = taskObj["name"];
+        formOptions.setProjectOptions(form.querySelector("#project"));
 
         changeTaskModal.showModal();
     }
@@ -55,7 +57,7 @@ closeChangeModal.addEventListener("click", (e) => {
     changeTaskModal.close();
 });
 
-changeTaskBtn.addEventListener("click", async (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     let taskObj = taskMethods.getTaskFromForm(form);

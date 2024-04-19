@@ -25,11 +25,13 @@ closeModal.addEventListener("click", (e) => {
     addTaskModal.close();
 });
 
-addTaskBtn.addEventListener("click", (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     let taskObj = taskMethods.getTaskFromForm(form);
-    taskMethods.addTask(taskObj);
+    console.log(taskObj.priority);
+    console.log(taskObj);
+    await taskMethods.addTask(taskObj);
 
     form.reset();
 });

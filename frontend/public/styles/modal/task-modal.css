@@ -11,7 +11,7 @@
 #change-task-modal {
     margin-left: 246px;
     background-color: #1e1e1e;
-    width: 548px;
+    width: 478px;
     padding: 15px;
     border-radius: 5px;
     border: 1px solid #6b6b6b;
@@ -57,10 +57,19 @@ input:focus {
     flex-direction: column;
 }
 
-.task-params {
-    margin: 10px 0;
+.modal .task-params {
+    margin: 5px 0;
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     gap: 5px;
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        gap: 5px;
+    }
 }
 
 #add-task-modal hr,
