@@ -1,8 +1,17 @@
 import tokenUsername from "../classes/tokenUsername.js";
 import inboxDisplay from "./inboxDisplay.js";
+import tickHandler from "../handlers/tickHandler.js";
+import projectMethods from "./projectMethods.js";
 
 export class TaskDisplay {
     #container = document.getElementById("task-display");
+    #projectDict;
+
+    constructor() {
+        document.addEventListener("DOMContentLoaded", async () => {
+            this.#projectDict = await projectMethods.formProjectDict();
+        });
+    }
 
     async correctPageDisplay(pageName) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -27,6 +36,10 @@ export class TaskDisplay {
                 document.getElementById("task-display").innerHTML = "";
                 await this.#displayToday();
                 break;
+            case "Просроченные":
+                document.getElementById("task-display").innerHTML = "";
+                await this.#displayMissed();
+                break;
             case "Выполненные задачи":
                 await this.#displayDone();
                 break;
@@ -34,8 +47,12 @@ export class TaskDisplay {
                 this.#displayProject(currProjectName);
                 break;
             case "label":
-                this.#displayLabel(currLabelName);
+                await this.#displayLabel(currLabelName);
                 break;
+        }
+
+        if (pageName !== "Выполненные задачи") {
+            tickHandler();
         }
     }
 
@@ -66,8 +83,43 @@ export class TaskDisplay {
                         task.priority,
                         taskElement.querySelector(".task-button")
                     );
+
+                    if (project) {
+                        this.#setCorrectProjectColor(
+                            task.project,
+                            taskElement.querySelector(".task-project")
+                        );
+                    }
                 }
             });
+        });
+    }
+
+    async #displayMissed() {
+        const res = await fetch(
+            `http://localhost:5000/task/getMissed?username=${tokenUsername.getUsername()}`
+        );
+        const tasks = await res.json();
+        if (tasks.length == 0) {
+            this.#emptyScreen();
+        }
+
+        tasks.forEach((task) => {
+            console.log(task);
+            const taskElement = this.#addTaskToPage(task);
+            console.log(taskElement);
+            this.#container.appendChild(taskElement);
+            this.#setCorrectPriority(
+                task.priority,
+                taskElement.querySelector(".task-button")
+            );
+
+            if (project) {
+                this.#setCorrectProjectColor(
+                    task.project,
+                    taskElement.querySelector(".task-project")
+                );
+            }
         });
     }
 
@@ -85,7 +137,17 @@ export class TaskDisplay {
             const taskElement = this.#addTaskToPage(task);
             console.log(taskElement);
             this.#container.appendChild(taskElement);
-            this.#setCorrectPriority(task.priority);
+            this.#setCorrectPriority(
+                task.priority,
+                taskElement.querySelector(".task-button")
+            );
+
+            if (project) {
+                this.#setCorrectProjectColor(
+                    task.project,
+                    taskElement.querySelector(".task-project")
+                );
+            }
         });
     }
 
@@ -105,45 +167,76 @@ export class TaskDisplay {
                 task.priority,
                 taskElement.querySelector(".task-button")
             );
+
+            if (project) {
+                this.#setCorrectProjectColor(
+                    task.project,
+                    taskElement.querySelector(".task-project")
+                );
+            }
         });
     }
 
-    #displayProject(projectName) {
-        fetch(
+    async #displayProject(projectName) {
+        const res = await fetch(
             `http://localhost:5000/task/getProject?username=${tokenUsername.getUsername()}&projectName=${projectName}`
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                for (let i = 0; i < res.length; i++) {
-                    this.#addTaskToPage(res[i]);
-                }
-            });
+        );
+        const tasks = await res.json();
+        if (tasks.length == 0) {
+            this.#emptyScreen();
+        }
+
+        tasks.forEach((task) => {
+            console.log(task);
+            const taskElement = this.#addTaskToPage(task);
+            console.log(taskElement);
+            this.#container.appendChild(taskElement);
+            this.#setCorrectPriority(
+                task.priority,
+                taskElement.querySelector(".task-button")
+            );
+
+            if (project) {
+                this.#setCorrectProjectColor(
+                    task.project,
+                    taskElement.querySelector(".task-project")
+                );
+            }
+        });
     }
 
-    #displayLabel(labelName) {
-        fetch("http://localhost:5000/getWithLabel", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                labelName,
-            }),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res[0] != undefined) {
-                    console.log(res[0].tasks);
-                    for (let i = 0; i < res[0].tasks.length; i++) {
-                        if (res[0].tasks[i].label === labelName) {
-                            this.#addTaskToPage(res[0].tasks[i]);
-                            //correct task num and today task num
-                        }
-                    }
-                } else {
-                    this.#emptyScreen();
-                }
-            });
+    async #displayLabel(labelName) {
+        const res = await fetch(
+            `http://localhost:5000/task/getLabel?username=${tokenUsername.getUsername()}&labelName=${labelName}`
+        );
+        const tasks = await res.json();
+        if (tasks.length == 0) {
+            this.#emptyScreen();
+        }
+
+        tasks.forEach((task) => {
+            console.log(task);
+            const taskElement = this.#addTaskToPage(task);
+            console.log(taskElement);
+            this.#container.appendChild(taskElement);
+            this.#setCorrectPriority(
+                task.priority,
+                taskElement.querySelector(".task-button")
+            );
+
+            if (project) {
+                this.#setCorrectProjectColor(
+                    task.project,
+                    taskElement.querySelector(".task-project")
+                );
+            }
+        });
+    }
+
+    async #setCorrectProjectColor(Project, button) {
+        console.log(this.#projectDict);
+
+        button.style.color = this.#projectDict[Project];
     }
 
     #setCorrectPriority(Priority, button) {

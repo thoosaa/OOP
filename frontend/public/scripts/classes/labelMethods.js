@@ -1,42 +1,42 @@
 import tokenUsername from "../classes/tokenUsername.js";
 
-class ProjectMethods {
-    getProjectFromForm(form) {
+class LabelMethods {
+    getLabelFromForm(form) {
         const formData = new FormData(form);
 
-        let project = {};
+        let label = {};
         formData.forEach((value, key) => {
-            project[key] = value;
+            label[key] = value;
         });
 
-        return project;
+        return label;
     }
 
-    async addProject(project) {
-        const addProjectModal = document.getElementById("add-project-modal");
+    async addLabel(label) {
+        const addLabelModal = document.getElementById("add-label-modal");
         try {
-            const response = await fetch(
-                `http://localhost:5000/project/add?username=${tokenUsername.getUsername()}`,
+            const responce = await fetch(
+                `http://localhost:5000/label/add?username=${tokenUsername.getUsername()}`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(project),
+                    body: JSON.stringify(label),
                 }
             );
 
-            if (response.ok) {
-                addProjectModal.close();
+            if (responce.ok) {
+                addLabelModal.close();
             }
         } catch (error) {
             console.error("Ошибка при выполнении запроса:", error);
         }
     }
 
-    async getProjects() {
+    async getLabels() {
         const res = await fetch(
-            `http://localhost:5000/project/get?username=${tokenUsername.getUsername()}`
+            `http://localhost:5000/label/get?username=${tokenUsername.getUsername()}`
         );
         let arr = await res.json();
 
@@ -44,9 +44,9 @@ class ProjectMethods {
         return arr;
     }
 
-    async formProjectDict() {
+    async formLabelDict() {
         const res = await fetch(
-            `http://localhost:5000/project/get?username=${tokenUsername.getUsername()}`
+            `http://localhost:5000/label/get?username=${tokenUsername.getUsername()}`
         );
         let arr = await res.json();
 
@@ -59,4 +59,4 @@ class ProjectMethods {
     }
 }
 
-export default new ProjectMethods();
+export default new LabelMethods();

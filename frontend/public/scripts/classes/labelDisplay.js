@@ -32,3 +32,5 @@ class labelDisplay {
         hashtag.style.color = Color;
     }
 }
+
+export default new labelDisplay();

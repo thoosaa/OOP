@@ -15,6 +15,7 @@ addTaskNavBtn.addEventListener("click", (e) => {
     form.reset();
 
     formOptions.setProjectOptions(document.getElementById("project"));
+    formOptions.setLabelOptions(document.getElementById("label"));
 
     addTaskModal.showModal();
 });

@@ -22,6 +22,10 @@ router.get("/project", isAuthenticated, (req, res) => {
     res.render("./pages/project");
 });
 
+router.get("/missed", isAuthenticated, (req, res) => {
+    res.render("./pages/missed");
+});
+
 router.get("/", (req, res) => {
     res.redirect("/auth/login");
 });

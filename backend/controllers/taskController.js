@@ -25,6 +25,21 @@ class taskController {
         }
     }
 
+    async getMissed(req, res) {
+        const username = req.query.username;
+        const today = new Date().toISOString().slice(0, 10);
+
+        try {
+            const user = await User.findOne({ name: username });
+            const tasks = user.tasks.filter(
+                (task) => task.done[0] == "false" && task.deadline < today
+            );
+            res.json(tasks);
+        } catch (error) {
+            res.status(500).json({ error: "Внутренняя ошибка сервера" });
+        }
+    }
+
     async getToday(req, res) {
         const username = req.query.username;
 
@@ -72,6 +87,21 @@ class taskController {
         }
     }
 
+    async getLabel(req, res) {
+        const { username, labelName } = req.query;
+
+        try {
+            const user = await User.findOne({ name: username });
+            const tasks = user.tasks.filter(
+                (task) => task.done[0] == "false" && task.label == labelName
+            );
+            res.json(tasks);
+        } catch {
+            console.log(error);
+            res.status(500).json({ error: "Внутренняя ошибка сервера" });
+        }
+    }
+
     async countAll(req, res) {
         const username = req.query.username;
 
@@ -81,6 +111,21 @@ class taskController {
                 (task) => task.done[0] == "false"
             ).length;
             console.log(len);
+            res.json(len);
+        } catch (error) {
+            res.status(500).json({ error: "Внутренняя ошибка сервера" });
+        }
+    }
+
+    async countMissed(req, res) {
+        const username = req.query.username;
+        const today = new Date().toISOString().slice(0, 10);
+
+        try {
+            const user = await User.findOne({ name: username });
+            const len = user.tasks.filter(
+                (task) => task.done[0] == "false" && task.deadline < today
+            ).length;
             res.json(len);
         } catch (error) {
             res.status(500).json({ error: "Внутренняя ошибка сервера" });

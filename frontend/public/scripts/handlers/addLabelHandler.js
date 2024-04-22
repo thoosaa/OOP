@@ -1,10 +1,10 @@
+import labelMethods from "../classes/labelMethods.js";
+import labelDisplay from "../classes/labelDisplay.js";
+
 const addLabelBtnNav = document.getElementById("add-new-label");
 const addLabelModal = document.getElementById("add-label-modal");
+const form = document.getElementById("add-label-form");
 const closeLabelModal = document.getElementById("close-label-modal");
-
-document.getElementById("deadline").min = new Date()
-    .toISOString()
-    .split("T")[0];
 
 addLabelBtnNav.addEventListener("click", (e) => {
     e.preventDefault();
@@ -14,4 +14,13 @@ addLabelBtnNav.addEventListener("click", (e) => {
 closeLabelModal.addEventListener("click", (e) => {
     e.preventDefault();
     addLabelModal.close();
+});
+
+addLabelModal.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    let label = labelMethods.getLabelFromForm(form);
+    console.log(label);
+    labelMethods.addLabel(label);
+    await labelDisplay.display();
 });

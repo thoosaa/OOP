@@ -4,7 +4,8 @@
     display: flex;
     gap: 10px;
     margin: 15px 25px;
-    border-bottom: 1px solid #8a8181;
+    padding: 10px;
+    border-bottom: 0.5px solid #8a8181;
 }
 
 .task-button {
@@ -26,6 +27,7 @@
 .task-des {
     font-size: 12px;
     margin-top: 2px;
+    padding: 2px 0;
 }
 
 .task-check {

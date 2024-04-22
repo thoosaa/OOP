@@ -43,6 +43,7 @@ async function handleClick(e) {
 
         oldTaskName = taskObj["name"];
         formOptions.setProjectOptions(form.querySelector("#project"));
+        formOptions.setLabelOptions(form.querySelector("#label"));
 
         changeTaskModal.showModal();
     }

@@ -6,6 +6,8 @@ const controller = require("../controllers/taskController");
 
 router.get("/get", controller.getAll);
 
+router.get("/getMissed", controller.getMissed);
+
 router.get("/getDone", controller.getDone);
 
 router.get("/getToday", controller.getToday);
@@ -14,9 +16,13 @@ router.get("/getDoneToday", controller.getDoneToday);
 
 router.get("/getProject", controller.getProject);
 
+router.get("/getLabel", controller.getLabel);
+
 router.get("/countAll", controller.countAll);
 
 router.get("/countToday", controller.countToday);
+
+router.get("/countMissed", controller.countMissed);
 
 router.post("/add", controller.addTask);
 
