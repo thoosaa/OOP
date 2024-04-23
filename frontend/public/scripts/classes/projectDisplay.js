@@ -24,11 +24,7 @@ class projectDisplay {
     </span><span>${Name}</span>`;
         container.appendChild(projectElem);
 
-        const hashtags = document.getElementsByClassName(
-            "material-symbols-outlined hashtag"
-        );
-        const hashtag = hashtags[hashtags.length - 1];
-        //console.log(hashtag);
+        const hashtag = projectElem.querySelector(".material-symbols-outlined");
         hashtag.style.color = Color;
     }
 }

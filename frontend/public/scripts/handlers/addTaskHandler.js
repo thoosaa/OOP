@@ -30,8 +30,8 @@ form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     let taskObj = taskMethods.getTaskFromForm(form);
-    console.log(taskObj.priority);
-    console.log(taskObj);
+    //console.log(taskObj.priority);
+    //console.log(taskObj);
     await taskMethods.addTask(taskObj);
 
     form.reset();

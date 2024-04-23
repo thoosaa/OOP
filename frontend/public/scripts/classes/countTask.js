@@ -17,7 +17,7 @@ class TaskCount {
         return data;
     }
 
-    async #getMissed() {
+    async getMissed() {
         const res = await fetch(
             `http://localhost:5000/task/countMissed?username=${tokenUsername.getUsername()}`
         );
@@ -29,7 +29,7 @@ class TaskCount {
         const countToday = await this.#getToday();
         document.getElementById("today-task-number").innerText = countToday;
 
-        const countMissed = await this.#getMissed();
+        const countMissed = await this.getMissed();
         document.getElementById("missed-task-number").innerText = countMissed;
 
         const countAll = await this.#getAll();

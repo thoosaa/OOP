@@ -8,6 +8,7 @@
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    overflow: hidden;
 }
 
 .task:hover {
@@ -52,7 +53,7 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    gap: 2px;
+    gap: 4px;
 }
 
 .task-datetime {

@@ -22,7 +22,13 @@
         <div class="task-params">
             <div>
                 <label for="deadline">Срок выполнения</label>
-                <input type="date" id="deadline" name="deadline" required />
+                <input
+                    type="date"
+                    id="deadline"
+                    name="deadline"
+                    required
+                    onkeydown="return false"
+                />
             </div>
 
             <div>
@@ -31,6 +37,7 @@
                     placeholder="Напоминание"
                     type="datetime-local"
                     id="notification"
+                    onkeydown="return false"
                 />
             </div>
 

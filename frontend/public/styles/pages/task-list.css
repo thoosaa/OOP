@@ -66,20 +66,9 @@
     color: #4b9253 !important;
 }
 
-.task-project {
-    color: #8a8181;
-}
-
-.task-project .material-symbols-outlined {
-    color: #8a8181 !important;
-}
-
+.task-project,
 .task-label {
-    color: #f679f8;
-}
-
-.task-label .material-symbols-outlined {
-    color: #f679f8 !important;
+    color: whitesmoke;
 }
 
 .task-empty {

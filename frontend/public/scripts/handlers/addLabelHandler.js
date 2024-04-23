@@ -5,6 +5,7 @@ const addLabelBtnNav = document.getElementById("add-new-label");
 const addLabelModal = document.getElementById("add-label-modal");
 const form = document.getElementById("add-label-form");
 const closeLabelModal = document.getElementById("close-label-modal");
+const addLabelBtn = document.getElementById("add-label-button");
 
 addLabelBtnNav.addEventListener("click", (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ closeLabelModal.addEventListener("click", (e) => {
     addLabelModal.close();
 });
 
-addLabelModal.addEventListener("click", async (e) => {
+addLabelBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
     let label = labelMethods.getLabelFromForm(form);

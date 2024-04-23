@@ -2,14 +2,18 @@ import tokenUsername from "../classes/tokenUsername.js";
 import inboxDisplay from "./inboxDisplay.js";
 import tickHandler from "../handlers/tickHandler.js";
 import projectMethods from "./projectMethods.js";
+import labelMethods from "./labelMethods.js";
+import countTask from "./countTask.js";
 
 export class TaskDisplay {
     #container = document.getElementById("task-display");
     #projectDict;
+    #labelDict;
 
     constructor() {
         document.addEventListener("DOMContentLoaded", async () => {
             this.#projectDict = await projectMethods.formProjectDict();
+            this.#labelDict = await labelMethods.formLabelDict();
         });
     }
 
@@ -26,18 +30,25 @@ export class TaskDisplay {
             pageName = "label";
         }
 
+        const taskDisplay = document.getElementById("task-display");
+        const dateDisplay = document.getElementById("date-display");
+
+        if (taskDisplay) {
+            taskDisplay.innerHTML = null;
+        }
+
+        if (dateDisplay) {
+            dateDisplay.innerHTML = null;
+        }
+
         switch (pageName) {
             case "Входящие":
-                document.getElementById("task-display").innerHTML = "";
-                document.getElementById("date-display").innerHTML = "";
                 await this.#displayAll();
                 break;
             case "Сегодня":
-                document.getElementById("task-display").innerHTML = "";
                 await this.#displayToday();
                 break;
             case "Просроченные":
-                document.getElementById("task-display").innerHTML = "";
                 await this.#displayMissed();
                 break;
             case "Выполненные задачи":
@@ -61,35 +72,26 @@ export class TaskDisplay {
             `http://localhost:5000/task/get?username=${tokenUsername.getUsername()}`
         );
         const tasks = await res.json();
-        if (tasks.length == 0) {
+        const countmissed = await countTask.getMissed();
+        if (tasks.length == 0 || tasks.length - countmissed <= 0) {
             this.#emptyScreen();
             return;
         }
         const columns = inboxDisplay.createDates();
         tasks.forEach((task) => {
-            console.log(task.priority);
+            console.log(task);
+            console.log(task.notification);
             columns.forEach((column) => {
                 const columnDate = new Date(
                     column.querySelector(".date").innerText
                 );
 
                 columnDate.setDate(columnDate.getDate() + 1);
-                //console.log(columnDate);
 
                 if (task.deadline === columnDate.toISOString().slice(0, 10)) {
                     const taskElement = this.#addTaskToPage(task);
                     column.appendChild(taskElement);
-                    this.#setCorrectPriority(
-                        task.priority,
-                        taskElement.querySelector(".task-button")
-                    );
-
-                    if (project) {
-                        this.#setCorrectProjectColor(
-                            task.project,
-                            taskElement.querySelector(".task-project")
-                        );
-                    }
+                    this.#setColors(task, taskElement);
                 }
             });
         });
@@ -106,20 +108,11 @@ export class TaskDisplay {
 
         tasks.forEach((task) => {
             console.log(task);
+            console.log(task.notification);
             const taskElement = this.#addTaskToPage(task);
             console.log(taskElement);
             this.#container.appendChild(taskElement);
-            this.#setCorrectPriority(
-                task.priority,
-                taskElement.querySelector(".task-button")
-            );
-
-            if (project) {
-                this.#setCorrectProjectColor(
-                    task.project,
-                    taskElement.querySelector(".task-project")
-                );
-            }
+            this.#setColors(task, taskElement);
         });
     }
 
@@ -137,17 +130,7 @@ export class TaskDisplay {
             const taskElement = this.#addTaskToPage(task);
             console.log(taskElement);
             this.#container.appendChild(taskElement);
-            this.#setCorrectPriority(
-                task.priority,
-                taskElement.querySelector(".task-button")
-            );
-
-            if (project) {
-                this.#setCorrectProjectColor(
-                    task.project,
-                    taskElement.querySelector(".task-project")
-                );
-            }
+            this.#setColors(task, taskElement);
         });
     }
 
@@ -163,17 +146,7 @@ export class TaskDisplay {
         tasks.forEach((task) => {
             const taskElement = this.#addTaskToPage(task);
             this.#container.appendChild(taskElement);
-            this.#setCorrectPriority(
-                task.priority,
-                taskElement.querySelector(".task-button")
-            );
-
-            if (project) {
-                this.#setCorrectProjectColor(
-                    task.project,
-                    taskElement.querySelector(".task-project")
-                );
-            }
+            this.#setColors(task, taskElement);
         });
     }
 
@@ -191,17 +164,7 @@ export class TaskDisplay {
             const taskElement = this.#addTaskToPage(task);
             console.log(taskElement);
             this.#container.appendChild(taskElement);
-            this.#setCorrectPriority(
-                task.priority,
-                taskElement.querySelector(".task-button")
-            );
-
-            if (project) {
-                this.#setCorrectProjectColor(
-                    task.project,
-                    taskElement.querySelector(".task-project")
-                );
-            }
+            this.#setColors(task, taskElement);
         });
     }
 
@@ -219,24 +182,15 @@ export class TaskDisplay {
             const taskElement = this.#addTaskToPage(task);
             console.log(taskElement);
             this.#container.appendChild(taskElement);
-            this.#setCorrectPriority(
-                task.priority,
-                taskElement.querySelector(".task-button")
-            );
-
-            if (project) {
-                this.#setCorrectProjectColor(
-                    task.project,
-                    taskElement.querySelector(".task-project")
-                );
-            }
         });
     }
 
-    async #setCorrectProjectColor(Project, button) {
-        console.log(this.#projectDict);
-
+    #setCorrectProjectColor(Project, button) {
         button.style.color = this.#projectDict[Project];
+    }
+
+    #setCorrectLabelColor(Label, button) {
+        button.style.color = this.#labelDict[Label];
     }
 
     #setCorrectPriority(Priority, button) {
@@ -264,6 +218,27 @@ export class TaskDisplay {
         button.style.color = color;
         button.style.borderColor = color;
         button.style.backgroundColor = bg_color;
+    }
+
+    #setColors(task, taskElement) {
+        this.#setCorrectPriority(
+            task.priority,
+            taskElement.querySelector(".task-button")
+        );
+
+        if (taskElement.querySelector(".task-project")) {
+            this.#setCorrectProjectColor(
+                task.project,
+                taskElement.querySelector(".task-params .task-project")
+            );
+        }
+
+        if (taskElement.querySelector(".task-label")) {
+            this.#setCorrectProjectColor(
+                task.project,
+                taskElement.querySelector(".task-params .task-label")
+            );
+        }
     }
 
     #addTaskDisplay(Name, Description, Deadline, Notification, Project, Label) {

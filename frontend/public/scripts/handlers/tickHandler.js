@@ -1,6 +1,6 @@
 export default function a() {
     const ticks = document.querySelectorAll(".task-button");
-    console.log(ticks);
+    //console.log(ticks);
 
     ticks.forEach((tick) => {
         tick.querySelector(".task-check").style.visibility = "hidden";

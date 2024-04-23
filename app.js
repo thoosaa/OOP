@@ -9,6 +9,7 @@ const projectRouter = require("./backend/routers/projectRouter");
 const labelRouter = require("./backend/routers/labelRouter");
 const dailyGoalRouter = require("./backend/routers/dailyGoalRouter");
 const userRouter = require("./backend/routers/userRouter");
+const notificationRouter = require("./backend/routers/notificationRouter");
 
 const PORT = 5000;
 
@@ -34,6 +35,7 @@ app.use("/project", projectRouter);
 app.use("/label", labelRouter);
 app.use("/dailyGoal", dailyGoalRouter);
 app.use("/user", userRouter);
+app.use("/notification", notificationRouter);
 
 const start = async () => {
     try {

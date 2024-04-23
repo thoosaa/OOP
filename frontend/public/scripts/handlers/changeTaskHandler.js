@@ -39,12 +39,14 @@ async function handleClick(e) {
                 : target.closest("div");
 
         let taskObj = taskMethods.getTaskFromTask(taskEl, false);
+
+        await formOptions.setProjectOptions(form.querySelector("#project"));
+        await formOptions.setLabelOptions(form.querySelector("#label"));
+
+        console.log("got this obj", taskObj);
         taskMethods.fillFormFromObj(form, taskObj);
 
         oldTaskName = taskObj["name"];
-        formOptions.setProjectOptions(form.querySelector("#project"));
-        formOptions.setLabelOptions(form.querySelector("#label"));
-
         changeTaskModal.showModal();
     }
 }
@@ -62,7 +64,7 @@ form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     let taskObj = taskMethods.getTaskFromForm(form);
-    console.log(taskObj);
+    console.log("changed obj", taskObj);
 
     const response = await taskMethods.changeTask(taskObj, oldTaskName);
 

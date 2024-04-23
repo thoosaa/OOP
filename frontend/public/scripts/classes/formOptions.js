@@ -8,8 +8,6 @@ class FormOptions {
         let options = await projectMethods.getProjects();
         options.unshift({ Входящие: "inbox" });
 
-        console.log(options);
-
         for (const obj of options) {
             for (const key of Object.keys(obj)) {
                 const optionElement = document.createElement("option");
@@ -24,9 +22,7 @@ class FormOptions {
         field.innerHTML = "";
 
         let options = await labelMethods.getLabels();
-        options.unshift({ Входящие: "inbox" });
-
-        console.log(options);
+        options.unshift({ "Нет метки": "nolabel" });
 
         for (const obj of options) {
             for (const key of Object.keys(obj)) {

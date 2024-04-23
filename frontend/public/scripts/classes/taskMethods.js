@@ -14,15 +14,17 @@ class TaskMethods {
 
         taskObj["done"] = ["false"];
 
-        if (document.getElementById("label").value.trim() == "") {
+        //console.log(elem.querySelector("#notification").value);
+
+        if (elem.querySelector("#label").value.trim() == "") {
             taskObj["label"] = "nolabel";
         }
-        if (document.getElementById("notification").value.trim() == "") {
+        if (elem.querySelector("#notification").value.trim() == "") {
             taskObj["notification"] = "";
+        } else {
+            taskObj["notification"] = elem.querySelector("#notification").value;
         }
         taskObj = this.#correctObj(taskObj);
-        console.log(taskObj);
-
         return taskObj;
     }
 
@@ -47,17 +49,17 @@ class TaskMethods {
         let notif =
             task.querySelector(".task-notification") == null
                 ? ""
-                : task.querySelector(".task-notification").innerHTML;
+                : task.querySelectorAll(".task-notification")[1].innerHTML;
 
         let label =
             task.querySelector(".task-label") == null
                 ? "nolabel"
-                : task.querySelector(".task-label").innerHTML;
+                : task.querySelectorAll(".task-label")[1].innerHTML;
 
         let project =
             task.querySelector(".task-project") == null
                 ? "inbox"
-                : task.querySelector(".task-project").innerHTML;
+                : task.querySelectorAll(".task-project")[1].innerHTML;
 
         let taskObj = {
             name: task.querySelector(".task-name").innerText,
@@ -71,7 +73,7 @@ class TaskMethods {
         };
 
         let oldObj = this.#correctObj({ ...taskObj, done: ["false"] });
-        console.log(oldObj);
+        //console.log(oldObj);
 
         return oldObj;
     }
@@ -86,6 +88,7 @@ class TaskMethods {
             }
             if (selector) {
                 selector.value = taskObj[key];
+                //console.log(selector, taskObj[key]);
             }
         });
     }
