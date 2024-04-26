@@ -10,14 +10,10 @@ export class TaskDisplay {
     #projectDict;
     #labelDict;
 
-    constructor() {
-        document.addEventListener("DOMContentLoaded", async () => {
-            this.#projectDict = await projectMethods.formProjectDict();
-            this.#labelDict = await labelMethods.formLabelDict();
-        });
-    }
-
     async correctPageDisplay(pageName) {
+        this.#projectDict = await projectMethods.formProjectDict();
+        this.#labelDict = await labelMethods.formLabelDict();
+
         const urlParams = new URLSearchParams(window.location.search);
         const currProjectName = urlParams.get("currProjectName");
         if (currProjectName) {
@@ -234,8 +230,8 @@ export class TaskDisplay {
         }
 
         if (taskElement.querySelector(".task-label")) {
-            this.#setCorrectProjectColor(
-                task.project,
+            this.#setCorrectLabelColor(
+                task.label,
                 taskElement.querySelector(".task-params .task-label")
             );
         }

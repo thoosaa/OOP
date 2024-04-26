@@ -18,9 +18,9 @@ class labelDisplay {
         console.log(Name, Color);
         let container = document.getElementById("labels-list");
         let projectElem = document.createElement("li");
-        projectElem.className = "project";
+        projectElem.className = "label";
         projectElem.innerHTML = `<span class="material-symbols-outlined hashtag">
-    tag
+    label
     </span><span>${Name}</span>`;
         container.appendChild(projectElem);
 
