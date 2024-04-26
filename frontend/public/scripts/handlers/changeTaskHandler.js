@@ -12,6 +12,17 @@ const gridColumnContainer = document.getElementById("date-display");
 
 let oldTaskName;
 
+const notificationField = changeTaskModal.querySelector("#notification");
+notificationField.min = new Date(new Date().getTime())
+    .toISOString()
+    .slice(0, 16);
+
+setInterval(() => {
+    notificationField.min = new Date(new Date().getTime())
+        .toISOString()
+        .slice(0, 16);
+}, 60000);
+
 async function handleClick(e) {
     e.preventDefault();
     const target = e.target;
@@ -47,6 +58,7 @@ async function handleClick(e) {
         taskMethods.fillFormFromObj(form, taskObj);
 
         oldTaskName = taskObj["name"];
+
         changeTaskModal.showModal();
     }
 }
