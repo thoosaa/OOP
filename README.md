@@ -11,3 +11,6 @@
 - редактирование профиля
 - хранение пользователей с их задачами и метками в базе данных.
 <b>Стек:</b> HTML, CSS, JavaScript, Node JS, использование паттерна MVC
+
+Screenshots:
+![изображение](https://github.com/thoosaa/OOP/assets/112712302/f0eb825b-22fe-4f9b-9ed6-a27129ef7bb0)
