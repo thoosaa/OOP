@@ -16,3 +16,4 @@ Screenshots:
 ![изображение](https://github.com/thoosaa/OOP/assets/112712302/f0eb825b-22fe-4f9b-9ed6-a27129ef7bb0)
 ![Без имени](https://github.com/user-attachments/assets/6d9775d7-3ae8-4ebc-b84b-0a09d7acf79c)
 ![изображение](https://github.com/user-attachments/assets/b343bf41-e755-42d5-aa81-cd7f55b59b98)
+![изображение](https://github.com/user-attachments/assets/cb104eb9-c5b8-4cc6-9f6b-8b9b9494e004)
